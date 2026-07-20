@@ -1,0 +1,33 @@
+---
+description: Convenciones Flutter para la app móvil
+globs: mobile/**/*.dart
+alwaysApply: false
+---
+
+# Mobile conventions
+
+- Estado de auth: `providers/auth_provider.dart`
+- HTTP: `services/api_service.dart`
+- Config API: `config/api_config.dart` (default `10.0.2.2:8080` para emulador Android)
+- Pantallas en `screens/`
+- Contraseña por defecto staff/admin: `config/app_constants.dart` → `12345678`
+
+## Pantallas por rol
+
+| Rol | Pantallas |
+|-----|-----------|
+| `GYM_OWNER` (Administrador) | `home_screen.dart` + tab **Admin** → `gym_admin_screen.dart` |
+| `INSTRUCTOR` / `MEMBER` / `RECEPTIONIST` | `home_screen.dart` (según permisos) |
+
+## Al agregar pantalla
+
+1. Crear screen en `lib/screens/`
+2. Agregar método en `api_service.dart`
+3. Integrar en `home_screen.dart` (bottom nav) si aplica
+4. Documentar en `docs/wiki/Testing-Guide.md` sección Móvil
+
+## Primera vez
+
+```bash
+cd mobile && flutter create . --org com.gymplatform && flutter pub get
+```

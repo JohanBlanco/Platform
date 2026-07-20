@@ -1,0 +1,61 @@
+---
+description: Contexto general del proyecto GymPlatform y estructura multi-capa
+alwaysApply: true
+---
+
+# GymPlatform — Contexto del proyecto
+
+## Estructura
+
+- `backend/` — Spring Boot 3, Java 17, JWT, H2/PostgreSQL
+- `web/` — React + TypeScript + Vite (panel responsive)
+- `mobile/` — Flutter (Android/iOS)
+
+## Roles (gimnasio)
+
+| Rol (código) | Etiqueta UI | Acceso |
+|--------------|-------------|--------|
+| GYM_OWNER | Administrador | Plan de entrenamiento, usuarios, actividades, estadísticas, config |
+| RECEPTIONIST | Recepcionista | Recepción (staff), perfil miembro si tiene el rol |
+| INSTRUCTOR | Instructor | Plantillas y rutinas, solicitudes de rutina |
+| MEMBER | Miembro | Perfil, reservaciones, rutinas propias |
+
+> `PLATFORM_OWNER` / gestión de varios gimnasios como “clientes” **ya no se usa** (API `/api/platform/**` denegada).
+
+## Documentación (mantener sincronizada)
+
+Al hacer cambios significativos, actualizar:
+
+1. **Swagger** — automático vía anotaciones en controllers (`http://localhost:8080/swagger-ui.html`)
+2. **GitHub Wiki** — páginas en `docs/wiki/` (subir al repo wiki)
+3. **Notion** — plantilla en `docs/notion/GymPlatform-Hub.md`
+4. **Bitácora** — `docs/wiki/Changelog.md`
+
+## Cuentas demo
+
+- Administrador: `admin@fitlife.com` / `12345678` (perfiles: Administrador, Recepcionista, Instructor, Miembro — para probar el switch)
+- Instructor: `instructor@fitlife.com` / `instructor123`
+- Recepcionista: `recepcion@fitlife.com` / `recepcion123`
+- Miembro: `miembro@fitlife.com` / `miembro123`
+
+**Datos demo:** `backend/src/main/resources/db/demo-seed.sql` + `demo-seed-sales.sql` + `demo-seed-member.sql` (cargados por `DemoSqlSeeder`).
+
+**Marca:** color default de GymPlatform / orgs nuevas / FitLife demo = **indigo**.
+
+**Miembro demo** (`miembro@fitlife.com` / `miembro123`): rutina, nutrición, medidas, reservas y citas.
+
+## Contraseña por defecto (usuarios staff)
+
+- Al crear **usuarios del gym** (`POST /api/users`) sin `password`, se usa **`12345678`**
+- Áreas privadas / estadísticas (demo FitLife): **`12345678`**
+- Roles asignables por gym: `GYM_OWNER`, `INSTRUCTOR`, `MEMBER`, `RECEPTIONIST`
+- El auto-registro de miembros (`POST /api/auth/register/{orgId}`) sigue requiriendo que el usuario elija su contraseña
+
+## Convenciones de código
+
+- Backend: paquete `com.gymplatform`, DTOs como records, servicios con `@Transactional` en escrituras
+- Web: API en `web/src/api.ts`, tipos en `web/src/types.ts`
+- Mobile: API en `mobile/lib/services/api_service.dart`
+- Mensajes de error en español para el usuario final
+- Calendario actividades: bloques timeline verdes (`.activity-block`); vista **mes** usa `var(--primary)` del tema, no verde. Píldoras mes/semana: hora arriba, nombre abajo
+- En UI: decir **Administrador** / **admin**, nunca “dueño”

@@ -1,0 +1,32 @@
+# Rutinas — trabajo pendiente / continuar
+
+El usuario pausó mejoras de rutinas para trabajar citas y calendario de actividades. **Retomar cuando lo pida.**
+
+## Ruta principal
+- Web: `/training/rutinas` → `web/src/pages/training/RoutinesSection.tsx`
+- Miembro: `/servicios/rutinas` → `MemberRoutinesPage.tsx`
+- Backend: `RoutineService.java`, `ExerciseCatalogService.java`
+
+## Visibilidad por rol (nav)
+- **Recepcionista**: Inicio, Agenda, Tienda, Administración — **sin** Plan de entrenamiento / rutinas
+- **Instructor**: lo anterior + Plan de entrenamiento
+- **Admin (GYM_OWNER)**: todo (incluye Estadísticas)
+
+## Ya implementado (no rehacer)
+- Catálogo EresFitness + foro «Ejercicios» (texto scraped persistido en DB; image/video URL remotas)
+- Configuración → Foros; «Ver guía» lee el tema del foro por exerciseId
+- Rutinas por días, plantillas reutilizables, asignar desde plantilla
+- Solicitudes: Pendiente / Completado, pestaña «Rutinas completadas», purge 24h
+- «Mis solicitudes», instructor de preferencia, notas adicionales
+- Crear rutina / Asignar rutina desde solicitud, popular builder con plantillas
+- Filtros de búsqueda en modales de asignación
+
+## Mejoras pendientes (prioridad sugerida)
+1. **UX/UI de `RoutinesSection`** — refactor visual y de flujo; alinear estilo con citas/actividades
+2. **Builder de rutinas** — pulir creación/edición por días (drag, validaciones, responsive)
+3. **Media ejercicios** — enriquecer más `videoUrl`; migrar a cloud propia con licencia clara
+4. **App móvil** — paridad con web para solicitudes, rutinas asignadas y vista miembro
+5. **CRUD rutinas** — editar/eliminar rutinas y plantillas existentes si aún falta
+
+## Al retomar
+Preguntar al usuario qué mejora concreta quiere primero si no lo especifica.

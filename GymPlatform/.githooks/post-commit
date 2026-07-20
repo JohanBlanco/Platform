@@ -1,0 +1,3 @@
+#!/bin/sh
+# Post-commit desactivado — sync de docs solo manual (npm run docs:sync:full)
+exit 0

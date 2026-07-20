@@ -1,0 +1,29 @@
+---
+description: Convenciones Spring Boot para el backend GymPlatform
+globs: backend/**/*.java
+alwaysApply: false
+---
+
+# Backend conventions
+
+- Controllers en `controller/`, lógica en `service/`, entidades en `domain/entity/`
+- DTOs como `record` en `dto/`, sufijos: `Request`, `Response`
+- Excepciones: `ResourceNotFoundException`, `BusinessException`
+- Tenant scope vía `SecurityUtils.requireOrganizationId()`
+- Nuevos endpoints: documentar con `@Tag(name = "...")` en el controller
+
+## Ejemplo controller
+
+```java
+@Tag(name = "Actividades", description = "Gestión de actividades y cupos")
+@RestController
+@RequestMapping("/api/activities")
+public class ActivityController { ... }
+```
+
+## Al agregar endpoint
+
+1. DTO + Service + Controller
+2. Verificar `SecurityConfig` si es ruta pública o por rol
+3. Probar en Swagger UI con JWT
+4. Actualizar `docs/wiki/API-Reference.md` y Changelog

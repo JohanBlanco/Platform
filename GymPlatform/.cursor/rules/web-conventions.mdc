@@ -1,0 +1,36 @@
+---
+description: Convenciones React/TypeScript para el panel web
+globs: web/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Web conventions
+
+- API centralizada en `src/api.ts`, tipos en `src/types.ts`
+- Auth vía `src/auth.tsx` (Context + localStorage token)
+- Páginas en `src/pages/`, estilos globales en `src/index.css`
+- Proxy dev: Vite redirige `/api` → `localhost:8080`
+
+## Al agregar pantalla
+
+1. Crear página en `src/pages/`
+2. Registrar ruta en `src/App.tsx`
+3. Agregar método en `api.ts` si consume endpoint nuevo
+4. Documentar flujo de prueba en `docs/wiki/Testing-Guide.md`
+
+## Roles en UI
+
+- `GYM_OWNER` (etiqueta **Administrador**) → dashboard + administración / estadísticas / config
+- `RECEPTIONIST` / `INSTRUCTOR` / `MEMBER` → según `roles.ts`
+- No hay pantalla de “clientes / organizaciones” (`/platform` redirige a `/`)
+
+## Controles booleanos
+
+- **Nunca usar `<input type="checkbox">` en el panel** (ni apariencia de checkbox).
+- Todo on/off va con `HorizontalSwitch` (`web/src/components/HorizontalSwitch.tsx`).
+- Excepción: campos de formularios dinámicos del miembro (`FormFieldRenderer`) si el tipo del formulario es checkbox.
+
+## Confirmaciones
+
+- **Nunca usar** `window.confirm`, `window.alert` ni `window.prompt`.
+- Confirmaciones destructivas (eliminar, etc.) con `ConfirmDialog` (`web/src/components/ConfirmDialog.tsx`) o el mismo patrón de modal del sistema (`confirm-dialog-overlay`).

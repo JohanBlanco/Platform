@@ -1,0 +1,43 @@
+---
+description: Reglas para mantener documentación sincronizada al desarrollar
+alwaysApply: true
+---
+
+# Sincronización de documentación
+
+La documentación se sincroniza **automáticamente**. Ver [docs/AUTOMATION.md](../docs/AUTOMATION.md).
+
+## Automático (sin intervención)
+
+- **Swagger** — al correr `mvn spring-boot:run`
+- **GitHub Action** — en push a main (wiki + notion + commit docs)
+
+## Manual (cuando lo pidas)
+
+- **Cursor stop hook** — desactivado
+- **Git post-commit** — desactivado
+- Sync de docs solo con `npm run docs:sync:fast` o `docs:sync:full` explícito
+
+## Setup inicial
+
+```bash
+npm install
+npm run docs:install-hooks
+cp docs/env.example .env  # opcional: WIKI_PUSH_TOKEN, NOTION_TOKEN
+```
+
+## Checklist manual (solo si automatización falla)
+
+- [ ] `npm run docs:sync:full`
+- [ ] Verificar Swagger UI
+- [ ] Verificar `docs/wiki/Changelog.md`
+
+## Formato de entrada en Changelog (manual)
+
+Si agregas notas a mano además del auto-sync:
+
+```markdown
+## YYYY-MM-DD — Título breve
+- Qué se cambió
+- Cómo probarlo
+```
