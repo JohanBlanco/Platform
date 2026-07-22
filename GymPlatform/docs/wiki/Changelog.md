@@ -1,4 +1,16 @@
 
+<!-- AUTO:dbe0c4b9ca434ba0ea1f032777a2345da194af90 -->
+## 2026-07-21 — Prevent prod from falling back to embedded H2 when DB env vars are missing.
+
+_Auto-sync desde commit `dbe0c4b`_
+
+### Docs actualizados automáticamente
+- [x] Timestamps wiki
+- [x] Changelog
+- [x] API Reference (si --full)
+
+---
+
 <!-- AUTO:03808f18b74ae11f3688709c1c2bfcc205fbaeb2 -->
 ## 2026-07-21 — message
 
