@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.gymplatform.integration.ApplicationStartupIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 32.74 s -- in com.gymplatform.integration.ApplicationStartupIntegrationTest

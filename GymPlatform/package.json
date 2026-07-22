@@ -1,0 +1,19 @@
+{
+  "name": "gym-platform-docs",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "docs:sync": "node scripts/sync-docs.mjs",
+    "docs:sync:fast": "node scripts/sync-docs.mjs --fast",
+    "docs:sync:full": "node scripts/sync-docs.mjs --full",
+    "docs:install-hooks": "node scripts/install-git-hooks.mjs",
+    "docs:export-openapi": "node scripts/export-openapi.mjs",
+    "docs:update-api": "node scripts/update-api-reference.mjs",
+    "docs:sync-wiki": "node scripts/sync-wiki.mjs",
+    "docs:sync-notion": "node scripts/sync-notion.mjs"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.15"
+  }
+}

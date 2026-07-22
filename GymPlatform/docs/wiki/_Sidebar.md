@@ -1,0 +1,1 @@
+**[Inicio](Home)** · [Inicio rápido](Getting-Started) · [Pruebas](Testing-Guide) · [Wiki setup](SETUP-WIKI) · [Tech Stack](Tech-Stack) · [Arquitectura](Architecture) · [ERD](Database-ERD) · [PostgreSQL](Migrate-H2-to-PostgreSQL) · [Frontend](Frontend) · [API](API-Reference) · [Roles](Roles-and-Permissions) · [Changelog](Changelog)

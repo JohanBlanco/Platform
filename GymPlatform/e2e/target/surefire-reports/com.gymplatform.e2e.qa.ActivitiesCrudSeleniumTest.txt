@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: com.gymplatform.e2e.qa.ActivitiesCrudSeleniumTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 51.26 s <<< FAILURE! -- in com.gymplatform.e2e.qa.ActivitiesCrudSeleniumTest
+com.gymplatform.e2e.qa.ActivitiesCrudSeleniumTest.createEditDeleteActivity -- Time elapsed: 51.12 s <<< ERROR!
+org.openqa.selenium.TimeoutException: 
+Expected condition failed: waiting for at least one condition to be valid: element to no longer be visible: By.cssSelector: .admin-form-modal || visibility of element located by By.cssSelector: .toast-error (tried for 30 second(s) with 500 milliseconds interval)
+Build info: version: '4.27.0', revision: 'd6e718d134'
+System info: os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.12'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 150.0.7871.129, chrome: {chromedriverVersion: 150.0.7871.124 (9261fd0a595..., userDataDir: C:\Users\blajo\AppData\Loca...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54761}, goog:processID: 24832, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:54761/devtoo..., se:cdpVersion: 150.0.7871.129, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: e8017eb6ada204cf5377c6fa76e15926
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.gymplatform.e2e.pages.ActivitiesAdminPage.submitCreate(ActivitiesAdminPage.java:56)
+	at com.gymplatform.e2e.qa.ActivitiesCrudSeleniumTest.createEditDeleteActivity(ActivitiesCrudSeleniumTest.java:28)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+

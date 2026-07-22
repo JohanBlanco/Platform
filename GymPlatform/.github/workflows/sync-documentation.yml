@@ -6,9 +6,10 @@ on:
     paths:
       - 'backend/**'
       - 'web/**'
-      - 'mobile/**'
       - 'docs/**'
       - 'scripts/**'
+      - 'e2e/**'
+      - '.github/workflows/tests.yml'
       - '.github/workflows/sync-documentation.yml'
   workflow_dispatch:
 

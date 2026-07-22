@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: gymplatform-pg
+    environment:
+      POSTGRES_DB: gymplatform
+      POSTGRES_USER: gym
+      POSTGRES_PASSWORD: gymsecret
+    ports:
+      - "5432:5432"
+    volumes:
+      - gymplatform_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gym -d gymplatform"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  gymplatform_pg_data:

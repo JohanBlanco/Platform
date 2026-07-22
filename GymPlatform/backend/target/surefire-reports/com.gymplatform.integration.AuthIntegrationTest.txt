@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.gymplatform.integration.AuthIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.258 s -- in com.gymplatform.integration.AuthIntegrationTest

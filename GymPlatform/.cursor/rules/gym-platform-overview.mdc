@@ -7,9 +7,8 @@ alwaysApply: true
 
 ## Estructura
 
-- `backend/` — Spring Boot 3, Java 17, JWT, H2/PostgreSQL
+- `backend/` — Spring Boot 3, Java 17, JWT. Perfiles: `dev` (H2), `dev-postgresql`, `prod` (PostgreSQL)
 - `web/` — React + TypeScript + Vite (panel responsive)
-- `mobile/` — Flutter (Android/iOS)
 
 ## Roles (gimnasio)
 
@@ -33,12 +32,24 @@ Al hacer cambios significativos, actualizar:
 
 ## Cuentas demo
 
+**Administrador bootstrap (todos los perfiles, oculto en UI):**
+
+| Login | Contraseña |
+|-------|------------|
+| `gymplatformadmin` | `gymplatformadmin` |
+
+Solo pruebas visuales; no aparece en listados. Con demo FitLife se adjunta a org `fitlife`.
+
+**FitLife demo** (solo `dev` / `dev-postgresql` con seeds):
+
 - Administrador: `admin@fitlife.com` / `12345678` (perfiles: Administrador, Recepcionista, Instructor, Miembro — para probar el switch)
 - Instructor: `instructor@fitlife.com` / `instructor123`
 - Recepcionista: `recepcion@fitlife.com` / `recepcion123`
 - Miembro: `miembro@fitlife.com` / `miembro123`
 
-**Datos demo:** `backend/src/main/resources/db/demo-seed.sql` + `demo-seed-sales.sql` + `demo-seed-member.sql` (cargados por `DemoSqlSeeder`).
+**Datos demo:** `backend/src/main/resources/db/demo-seed*.sql` (H2) y `db/postgres/demo-seed-all.sql` (PostgreSQL). Recargar PG: `bash backend/scripts/load-postgres-demo.sh`.
+
+**Arranque backend:** ver `backend/README.md` — `dev` (default), `dev-postgresql` (+ Docker), `prod`.
 
 **Marca:** color default de GymPlatform / orgs nuevas / FitLife demo = **indigo**.
 
@@ -55,7 +66,6 @@ Al hacer cambios significativos, actualizar:
 
 - Backend: paquete `com.gymplatform`, DTOs como records, servicios con `@Transactional` en escrituras
 - Web: API en `web/src/api.ts`, tipos en `web/src/types.ts`
-- Mobile: API en `mobile/lib/services/api_service.dart`
 - Mensajes de error en español para el usuario final
 - Calendario actividades: bloques timeline verdes (`.activity-block`); vista **mes** usa `var(--primary)` del tema, no verde. Píldoras mes/semana: hora arriba, nombre abajo
 - En UI: decir **Administrador** / **admin**, nunca “dueño”

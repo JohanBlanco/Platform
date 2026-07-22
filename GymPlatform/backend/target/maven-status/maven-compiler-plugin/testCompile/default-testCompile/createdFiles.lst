@@ -1,0 +1,3 @@
+com\gymplatform\config\PostgresSeedScriptGeneratorTest.class
+com\gymplatform\OpenApiExportTest.class
+com\gymplatform\config\DemoSeedSqlDialectTest.class
