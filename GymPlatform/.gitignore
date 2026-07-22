@@ -1,6 +1,9 @@
 .tmp-wiki-sync/
 node_modules/
 backend/data/
+backend/target/
+e2e/target/
+web/dist/
 .env
 .env.*
 !.env.example

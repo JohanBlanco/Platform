@@ -18,16 +18,17 @@ Cada perfil define su propio bean `DataSource` en `DataSourceConfiguration.java`
 
 ## Deploy en Render
 
-El repo tiene `Dockerfile` en la raíz de `GymPlatform/` (recomendado). Render **no** debe usar runtime Node (hay `package.json` de docs).
+Runtime **Docker** (Render ya no lista Java nativo en Web Services). Archivos: `Dockerfile`, `.dockerignore`, `../render.yaml`.
 
 | Campo | Valor |
 |-------|--------|
 | **Root Directory** | `GymPlatform` |
-| **Runtime** | **Docker** (o Java 17 si no usas Docker) |
-| **Build** *(solo Java)* | `cd backend && mvn -DskipTests package` |
-| **Start** *(solo Java)* | `cd backend && java -jar target/gym-platform-api-1.0.0.jar` |
+| **Runtime** | **Docker** |
+| Build / Start | *(vacío — usa Dockerfile)* |
 
-Variables de entorno: ver `docs/env.example` (`DB_URL`, `DB_USER`, `DB_PASSWORD`, `APP_JWT_SECRET`, etc.).
+Variables de entorno: `docs/env.example` y guía `docs/deploy-render.md`.
+
+**Importante:** Render inyecta `PORT`; prod usa `server.port=${PORT:8080}`.
 
 ## Comandos
 

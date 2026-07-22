@@ -8,7 +8,7 @@ services:
     runtime: docker
     rootDir: GymPlatform
     plan: free
-    healthCheckPath: /swagger-ui.html
+    healthCheckPath: /v3/api-docs
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
