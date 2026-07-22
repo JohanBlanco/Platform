@@ -1,4 +1,16 @@
 
+<!-- AUTO:d4bc5004f245529086d681ef0b5dd2105d37a3f3 -->
+## 2026-07-21 — render fix
+
+_Auto-sync desde commit `d4bc500`_
+
+### Docs actualizados automáticamente
+- [x] Timestamps wiki
+- [x] Changelog
+- [x] API Reference (si --full)
+
+---
+
 <!-- AUTO:a7c183381ba5ef66a3e3b6f3cf0d6177f767d9db -->
 ## 2026-06-25 — completed jdbctemplate module
 
