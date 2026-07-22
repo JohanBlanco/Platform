@@ -15,6 +15,7 @@ C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\g
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\ForumExerciseSeeder.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\OpenApiConfig.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\OrganizationOwnerRepair.java
+C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\ProdDatabaseEnvironmentPostProcessor.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\ProductCatalogSeeder.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\ProductCategorySchemaMigrator.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\ProductCategorySeeder.java

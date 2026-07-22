@@ -1,6 +1,7 @@
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\test\java\com\gymplatform\config\DatabaseProfilesTest.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\test\java\com\gymplatform\config\DemoSeedSqlDialectTest.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\test\java\com\gymplatform\config\PostgresSeedScriptGeneratorTest.java
+C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\test\java\com\gymplatform\config\ProdDatabaseEnvironmentPostProcessorTest.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\test\java\com\gymplatform\config\SystemAccountsTest.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\test\java\com\gymplatform\integration\ApplicationStartupIntegrationTest.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\test\java\com\gymplatform\integration\AuthIntegrationTest.java
