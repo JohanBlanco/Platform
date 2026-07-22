@@ -16,6 +16,18 @@ Bitácora de cambios. Actualizar en cada sesión de trabajo.
 
 ---
 
+<!-- AUTO:3a6729479bb3693f5f3403ad8d6ce5995d55b6b9 -->
+## 2026-07-21 — fix: move GitHub Actions workflows to repo root
+
+_Auto-sync desde commit `3a67294`_
+
+### Docs actualizados automáticamente
+- [x] Timestamps wiki
+- [x] Changelog
+- [x] API Reference (si --full)
+
+---
+
 ## 2026-07-20 — Eliminada app móvil (solo web)
 
 ### Qué se hizo

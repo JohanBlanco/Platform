@@ -61,4 +61,4 @@ El administrador demo puede cambiar de perfil (Administrador / Recepcionista / I
 
 ---
 
-*Última actualización: 2026-07-20*
+*Última actualización: 2026-07-22 (auto-sync)*
