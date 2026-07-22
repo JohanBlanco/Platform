@@ -36,7 +36,19 @@ public class DataSourceConfiguration {
     @Bean
     @Profile(DatabaseProfiles.PROD)
     public DataSource prodDataSource(DataSourceProperties properties) {
+        requirePostgresJdbcUrl(properties.getUrl());
         return buildDataSource(properties, "prod");
+    }
+
+    private static void requirePostgresJdbcUrl(String url) {
+        if (url == null || !url.startsWith("jdbc:postgresql:")) {
+            throw new IllegalStateException(
+                    """
+                    Perfil prod requiere una URL PostgreSQL (jdbc:postgresql://...).
+                    En Render → Environment configura DB_URL, DB_USER y DB_PASSWORD
+                    (o DATABASE_URL=postgresql://USER:PASS@HOST/neondb?sslmode=require).
+                    """);
+        }
     }
 
     private static DataSource buildDataSource(DataSourceProperties properties, String profileLabel) {

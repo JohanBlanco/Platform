@@ -19,6 +19,8 @@
 #
 # También válidas: SPRING_DATASOURCE_URL / USERNAME / PASSWORD
 #
+# Importante: no dejes DB_URL vacío en Render (Spring no usa el fallback y activa H2 embebido).
+#
 #   SPRING_JPA_HIBERNATE_DDL_AUTO=validate
 #   APP_JWT_SECRET=
 #   APP_SECRETS_ENCRYPTION_KEY=

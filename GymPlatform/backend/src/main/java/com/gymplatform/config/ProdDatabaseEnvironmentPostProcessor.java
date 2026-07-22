@@ -1,12 +1,15 @@
 package com.gymplatform.config;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
+import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
+import org.springframework.core.env.Profiles;
 
 /**
  * En prod, normaliza credenciales Neon/Render:
@@ -16,9 +19,10 @@ import org.springframework.core.env.MapPropertySource;
  *   <li>{@code DATABASE_URL=postgresql://...} (Neon / Render)</li>
  * </ul>
  */
-public class ProdDatabaseEnvironmentPostProcessor implements EnvironmentPostProcessor {
+public class ProdDatabaseEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
     private static final String SOURCE = "gymplatformProdDatabase";
+    private static final String POSTGRES_DRIVER = "org.postgresql.Driver";
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
@@ -65,18 +69,44 @@ public class ProdDatabaseEnvironmentPostProcessor implements EnvironmentPostProc
         }
 
         overrides.put("DB_URL", dbUrl);
+        overrides.put("spring.datasource.url", dbUrl);
+        overrides.put("spring.datasource.driver-class-name", POSTGRES_DRIVER);
         if (!isBlank(dbUser)) {
             overrides.put("DB_USER", dbUser);
+            overrides.put("spring.datasource.username", dbUser);
         }
         if (!isBlank(dbPassword)) {
             overrides.put("DB_PASSWORD", dbPassword);
+            overrides.put("spring.datasource.password", dbPassword);
         }
 
         environment.getPropertySources().addFirst(new MapPropertySource(SOURCE, overrides));
     }
 
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
+    }
+
+    /**
+     * En este punto {@code acceptsProfiles} puede aún no ver {@code prod};
+     * Render/Docker inyectan {@code SPRING_PROFILES_ACTIVE} antes de cargar application.properties.
+     */
     private static boolean isProd(ConfigurableEnvironment environment) {
-        return environment.acceptsProfiles(org.springframework.core.env.Profiles.of(DatabaseProfiles.PROD));
+        if (environment.acceptsProfiles(Profiles.of(DatabaseProfiles.PROD))) {
+            return true;
+        }
+        return containsProfile(environment.getProperty("SPRING_PROFILES_ACTIVE"))
+                || containsProfile(environment.getProperty("spring.profiles.active"));
+    }
+
+    private static boolean containsProfile(String profilesActive) {
+        if (isBlank(profilesActive)) {
+            return false;
+        }
+        return Arrays.stream(profilesActive.split(","))
+                .map(String::trim)
+                .anyMatch(DatabaseProfiles.PROD::equals);
     }
 
     private static String firstNonBlank(String... values) {
