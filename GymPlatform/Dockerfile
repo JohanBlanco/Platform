@@ -8,7 +8,7 @@ COPY backend/src ./src
 RUN apt-get update \
     && apt-get install -y --no-install-recommends maven \
     && rm -rf /var/lib/apt/lists/* \
-    && mvn -B -DskipTests package
+    && mvn -B -DskipTests -Pdocker package
 
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app

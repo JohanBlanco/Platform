@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 
 /**
  * Un bean {@link DataSource} por perfil activo.
@@ -35,9 +36,19 @@ public class DataSourceConfiguration {
 
     @Bean
     @Profile(DatabaseProfiles.PROD)
-    public DataSource prodDataSource(DataSourceProperties properties) {
-        requirePostgresJdbcUrl(properties.getUrl());
-        return buildDataSource(properties, "prod");
+    public DataSource prodDataSource(Environment environment) {
+        String url = environment.getProperty("spring.datasource.url");
+        String username = environment.getProperty("spring.datasource.username", "");
+        String password = environment.getProperty("spring.datasource.password", "");
+        requirePostgresJdbcUrl(url);
+
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setPoolName("gymplatform-prod");
+        dataSource.setDriverClassName("org.postgresql.Driver");
+        dataSource.setJdbcUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        return dataSource;
     }
 
     private static void requirePostgresJdbcUrl(String url) {

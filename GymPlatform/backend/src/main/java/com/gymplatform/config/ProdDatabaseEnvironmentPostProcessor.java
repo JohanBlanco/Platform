@@ -33,26 +33,33 @@ public class ProdDatabaseEnvironmentPostProcessor implements EnvironmentPostProc
         Map<String, Object> overrides = new HashMap<>();
 
         String dbUrl = firstNonBlank(
-                environment.getProperty("DB_URL"),
-                environment.getProperty("SPRING_DATASOURCE_URL"));
+                property(environment, "DB_URL"),
+                property(environment, "SPRING_DATASOURCE_URL"),
+                property(environment, "spring.datasource.url"));
 
         String dbUser = firstNonBlank(
-                environment.getProperty("DB_USER"),
-                environment.getProperty("SPRING_DATASOURCE_USERNAME"));
+                property(environment, "DB_USER"),
+                property(environment, "SPRING_DATASOURCE_USERNAME"),
+                property(environment, "spring.datasource.username"));
 
         String dbPassword = firstNonBlank(
-                environment.getProperty("DB_PASSWORD"),
-                environment.getProperty("SPRING_DATASOURCE_PASSWORD"));
+                property(environment, "DB_PASSWORD"),
+                property(environment, "SPRING_DATASOURCE_PASSWORD"),
+                property(environment, "spring.datasource.password"));
 
-        String databaseUrl = environment.getProperty("DATABASE_URL");
+        String databaseUrl = property(environment, "DATABASE_URL");
         if (isBlank(dbUrl) && !isBlank(databaseUrl)) {
-            ParsedPostgres parsed = parsePostgresUrl(databaseUrl.trim());
-            dbUrl = parsed.jdbcUrl();
-            if (isBlank(dbUser)) {
-                dbUser = parsed.username();
-            }
-            if (isBlank(dbPassword)) {
-                dbPassword = parsed.password();
+            if (databaseUrl.startsWith("jdbc:postgresql:")) {
+                dbUrl = databaseUrl.trim();
+            } else {
+                ParsedPostgres parsed = parsePostgresUrl(databaseUrl.trim());
+                dbUrl = parsed.jdbcUrl();
+                if (isBlank(dbUser)) {
+                    dbUser = parsed.username();
+                }
+                if (isBlank(dbPassword)) {
+                    dbPassword = parsed.password();
+                }
             }
         }
 
@@ -96,8 +103,14 @@ public class ProdDatabaseEnvironmentPostProcessor implements EnvironmentPostProc
         if (environment.acceptsProfiles(Profiles.of(DatabaseProfiles.PROD))) {
             return true;
         }
-        return containsProfile(environment.getProperty("SPRING_PROFILES_ACTIVE"))
-                || containsProfile(environment.getProperty("spring.profiles.active"));
+        return containsProfile(property(environment, "SPRING_PROFILES_ACTIVE"))
+                || containsProfile(property(environment, "spring.profiles.active"));
+    }
+
+    /** Spring Environment ya incluye variables de OS en Render; no usar System.getenv (rompe tests locales). */
+    private static String property(ConfigurableEnvironment environment, String key) {
+        String value = environment.getProperty(key);
+        return isBlank(value) ? null : value.trim();
     }
 
     private static boolean containsProfile(String profilesActive) {
