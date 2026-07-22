@@ -1,4 +1,16 @@
 
+<!-- AUTO:740395918a98db160815286d5d79c6eb33e6859c -->
+## 2026-07-21 — STARTED Vercel
+
+_Auto-sync desde commit `7403959`_
+
+### Docs actualizados automáticamente
+- [x] Timestamps wiki
+- [x] Changelog
+- [x] API Reference (si --full)
+
+---
+
 <!-- AUTO:b46bcd6cb7569b783a931c27775c1c974bc2c6bf -->
 ## 2026-07-21 — Merge branch 'master' of https://github.com/JohanBlanco/Platform
 
