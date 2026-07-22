@@ -1,4 +1,16 @@
 
+<!-- AUTO:b46bcd6cb7569b783a931c27775c1c974bc2c6bf -->
+## 2026-07-21 — Merge branch 'master' of https://github.com/JohanBlanco/Platform
+
+_Auto-sync desde commit `b46bcd6`_
+
+### Docs actualizados automáticamente
+- [x] Timestamps wiki
+- [x] Changelog
+- [x] API Reference (si --full)
+
+---
+
 <!-- AUTO:d1139c7a18ce76f972daa71e5f3cdc0f7b0015e2 -->
 ## 2026-07-21 — Fix Render prod startup: remove invalid auto-config exclude and harden JDBC wiring.
 
