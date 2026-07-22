@@ -1,7 +1,7 @@
 -- =============================================================================
 -- GymPlatform — datos demo para perfil MIEMBRO (rutinas, nutrición, medidas)
 -- =============================================================================
--- Se carga si FitLife no tiene rutinas para miembro@fitlife.com (user id 5).
+-- Se carga si GymPlatform no tiene rutinas para miembro@gymplatform.local (user id 5).
 -- Usuario principal: Luis García (5) / miembro123
 -- También Patricia (6) con plan y medidas básicas.
 -- Instructor: Ana Torres (2)

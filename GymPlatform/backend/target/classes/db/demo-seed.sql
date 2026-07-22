@@ -1,7 +1,7 @@
 -- =============================================================================
 -- GymPlatform — datos demo (fuente de verdad)
 -- =============================================================================
--- Se carga al arrancar si NO existe la organización slug = 'fitlife'
+-- Se carga al arrancar si NO existe la organización slug = 'gymplatform-demo'
 -- (ver DemoSqlSeeder.java).
 --
 -- Para regenerar desde cero:
@@ -16,11 +16,11 @@
 -- Color de marca demo: indigo (default de GymPlatform)
 --
 -- IDs fijos (referencia rápida):
---   Orgs: 1=Bulls Gym(fitlife)  2=Power Gym  3=Iron Fit
---   Users FitLife: 2=instructor  3=recepción  4=administrador  5..12=miembros
+--   Orgs: 1=GymPlatform(gymplatform-demo)  2=Power Gym  3=Iron Fit
+--   Users GymPlatform: 2=instructor  3=recepción  4=administrador  5..12=miembros
 --   (sin cuenta PLATFORM_OWNER — el producto es un solo gimnasio)
 --   Users otros: 13=power admin  14=power instructor  15=iron admin
---   Packages FitLife: 1=Básica  2=Regular  3=Premium  4=Anual legacy
+--   Packages GymPlatform: 1=Básica  2=Regular  3=Premium  4=Anual legacy
 -- =============================================================================
 
 SET REFERENTIAL_INTEGRITY FALSE;
@@ -33,7 +33,7 @@ INSERT INTO organizations (
   business_hours, website_url, social_handle, accent_id, season_theme,
   subscription_status, subscription_start, subscription_end, active, created_at
 ) VALUES
-(1, 'Bulls Gym', 'fitlife', 'contacto@fitlife.com', '555-0100', NULL, 'San José',
+(1, 'GymPlatform', 'gymplatform-demo', 'contacto@gymplatform.local', '555-0100', NULL, 'San José',
  'Entrena con propósito', 'Lun–Sáb 5:00–22:00', NULL, NULL, 'indigo', 'NONE',
  'ACTIVE', CURRENT_TIMESTAMP, DATEADD('YEAR', 1, CURRENT_TIMESTAMP), TRUE, CURRENT_TIMESTAMP),
 (2, 'Power Gym', 'powergym', 'contacto@powergym.com', '555-0300', NULL, NULL,
@@ -55,37 +55,37 @@ INSERT INTO users (
   id, first_name, last_name, email, password_hash, organization_id,
   active, whatsapp_phone, national_id, created_at
 ) VALUES
-(2, 'Ana', 'Torres', 'instructor@fitlife.com',
+(2, 'Ana', 'Torres', 'instructor@gymplatform.local',
  '$2a$10$yahLES3NACJ0QXq8oRayvOfJfACKC6HiFkvagLi2yiseWnUdaiChq',
  1, TRUE, NULL, '203451234', CURRENT_TIMESTAMP),
-(3, 'María', 'López', 'recepcion@fitlife.com',
+(3, 'María', 'López', 'recepcion@gymplatform.local',
  '$2a$10$iuS5ejskEwQ4NmFUb1.EzOl2jgY/1WJ/ox9ozW24BeoIzlu.Bvao2',
  1, TRUE, NULL, '305672345', CURRENT_TIMESTAMP),
-(4, 'Carlos', 'Mendoza', 'admin@fitlife.com',
+(4, 'Carlos', 'Mendoza', 'admin@gymplatform.local',
  '$2a$10$aZ8ODce.PMKUkYFMVLPIRecG4Dc2tbnHwYdRJuCre6PfScQzioAi2',
  1, TRUE, NULL, '104560123', CURRENT_TIMESTAMP),
-(5, 'Luis', 'García', 'miembro@fitlife.com',
+(5, 'Luis', 'García', 'miembro@gymplatform.local',
  '$2a$10$HZcfhzuy4OcuSKR9jXRehe6a4GKCJNPGOeoNj3YnAKdTb86pb30xC',
  1, TRUE, NULL, '190205678', CURRENT_TIMESTAMP),
-(6, 'Patricia', 'Ruiz', 'patricia@fitlife.com',
+(6, 'Patricia', 'Ruiz', 'patricia@gymplatform.local',
  '$2a$10$HZcfhzuy4OcuSKR9jXRehe6a4GKCJNPGOeoNj3YnAKdTb86pb30xC',
  1, TRUE, NULL, '203456789', CURRENT_TIMESTAMP),
-(7, 'Roberto', 'Sánchez', 'roberto@fitlife.com',
+(7, 'Roberto', 'Sánchez', 'roberto@gymplatform.local',
  '$2a$10$HZcfhzuy4OcuSKR9jXRehe6a4GKCJNPGOeoNj3YnAKdTb86pb30xC',
  1, TRUE, NULL, '111223344', CURRENT_TIMESTAMP),
-(8, 'Sofía', 'Hernández', 'sofia@fitlife.com',
+(8, 'Sofía', 'Hernández', 'sofia@gymplatform.local',
  '$2a$10$HZcfhzuy4OcuSKR9jXRehe6a4GKCJNPGOeoNj3YnAKdTb86pb30xC',
  1, TRUE, NULL, '304567890', CURRENT_TIMESTAMP),
-(9, 'Diego', 'Morales', 'diego@fitlife.com',
+(9, 'Diego', 'Morales', 'diego@gymplatform.local',
  '$2a$10$HZcfhzuy4OcuSKR9jXRehe6a4GKCJNPGOeoNj3YnAKdTb86pb30xC',
  1, TRUE, NULL, '122334455', CURRENT_TIMESTAMP),
-(10, 'Elena', 'Castillo', 'elena@fitlife.com',
+(10, 'Elena', 'Castillo', 'elena@gymplatform.local',
  '$2a$10$HZcfhzuy4OcuSKR9jXRehe6a4GKCJNPGOeoNj3YnAKdTb86pb30xC',
  1, TRUE, NULL, '205678901', CURRENT_TIMESTAMP),
-(11, 'Héctor', 'Navarro', 'hector@fitlife.com',
+(11, 'Héctor', 'Navarro', 'hector@gymplatform.local',
  '$2a$10$HZcfhzuy4OcuSKR9jXRehe6a4GKCJNPGOeoNj3YnAKdTb86pb30xC',
  1, TRUE, NULL, '133445566', CURRENT_TIMESTAMP),
-(12, 'Carmen', 'Vega', 'carmen@fitlife.com',
+(12, 'Carmen', 'Vega', 'carmen@gymplatform.local',
  '$2a$10$HZcfhzuy4OcuSKR9jXRehe6a4GKCJNPGOeoNj3YnAKdTb86pb30xC',
  1, FALSE, NULL, '206789012', CURRENT_TIMESTAMP),
 (13, 'Jorge', 'Ramírez', 'admin@powergym.com',
@@ -176,7 +176,7 @@ INSERT INTO member_subscriptions (
 (8, 9, 1, DATEADD('MONTH', -5, CURRENT_DATE), DATEADD('MONTH', -3, CURRENT_DATE), TRUE, CURRENT_TIMESTAMP);
 
 -- ---------------------------------------------------------------------------
--- Actividades FitLife (+ imagen de portada)
+-- Actividades GymPlatform (+ imagen de portada)
 -- ---------------------------------------------------------------------------
 INSERT INTO activities (
   id, name, description, image_url, start_date, end_date, recurring, repeat_days,
@@ -338,13 +338,13 @@ INSERT INTO broadcast_message_templates (
 ) VALUES
 (1, 1, 'WHATSAPP', 'Bienvenida Básica',
  '¡Hola {{nombre}}! Bienvenido(a) a {{gimnasio}} con Membresía Básica. ¡Nos vemos en el gym!',
- 'WELCOME', 1, '["https://example.com/fitlife/guia-basica.pdf"]', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+ 'WELCOME', 1, '["https://example.com/gymplatform/guia-basica.pdf"]', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (2, 1, 'WHATSAPP', 'Bienvenida Regular',
  '¡Hola {{nombre}}! Gracias por unirte a {{gimnasio}} con Membresía Regular.',
- 'WELCOME', 2, '["https://example.com/fitlife/guia-regular.pdf"]', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+ 'WELCOME', 2, '["https://example.com/gymplatform/guia-regular.pdf"]', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 (3, 1, 'WHATSAPP', 'Bienvenida Premium',
  '¡Hola {{nombre}}! Bienvenido(a) al plan Premium de {{gimnasio}}. Acceso completo y clases ilimitadas.',
- 'WELCOME', 3, '["https://example.com/fitlife/guia-premium.pdf"]', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+ 'WELCOME', 3, '["https://example.com/gymplatform/guia-premium.pdf"]', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- ---------------------------------------------------------------------------
 -- Categorías de producto + productos demo (con ofertas)

@@ -183,7 +183,7 @@ Checklist:
 
 ## Paso 7 — Checklist de verificación post-migración
 
-1. Login: `admin@fitlife.com` / cuentas demo (si seeds).
+1. Login: `admin@gymplatform.local` / cuentas demo (si seeds).
 2. CRUD usuarios, actividades, POS (venta + caja).
 3. Estadísticas (área privada).
 4. WhatsApp settings (secretos cifrados siguen en columnas; misma `app.secrets.encryption-key` o reconfigurar).

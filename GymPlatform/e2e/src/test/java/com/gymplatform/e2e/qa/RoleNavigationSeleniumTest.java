@@ -3,6 +3,7 @@ package com.gymplatform.e2e.qa;
 import com.gymplatform.e2e.pages.AppShellPage;
 import com.gymplatform.e2e.pages.LoginPage;
 import com.gymplatform.e2e.support.BaseSeleniumTest;
+import com.gymplatform.e2e.support.TestCredentials;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ class RoleNavigationSeleniumTest extends BaseSeleniumTest {
     @Test
     @DisplayName("TC-MEMBER-001: Miembro ve sección Servicios")
     void memberSeesMemberNav() {
-        new LoginPage(driver, wait).login(webBase(), "miembro@fitlife.com", "miembro123");
+        new LoginPage(driver, wait).login(webBase(), TestCredentials.MEMBER_EMAIL, TestCredentials.MEMBER_PASSWORD);
         AppShellPage shell = new AppShellPage(driver, wait, webBase());
         shell.waitForAuthenticatedShell();
 
@@ -26,7 +27,7 @@ class RoleNavigationSeleniumTest extends BaseSeleniumTest {
     @Test
     @DisplayName("TC-ROLE-001: Admin cambia a perfil Miembro")
     void adminSwitchesToMemberProfile() {
-        new LoginPage(driver, wait).login(webBase(), "admin@fitlife.com", "12345678");
+        new LoginPage(driver, wait).login(webBase(), TestCredentials.ADMIN_EMAIL, TestCredentials.ADMIN_PASSWORD);
         AppShellPage shell = new AppShellPage(driver, wait, webBase());
         shell.waitForAuthenticatedShell();
 
@@ -37,7 +38,7 @@ class RoleNavigationSeleniumTest extends BaseSeleniumTest {
     @Test
     @DisplayName("TC-RECEP-001: Recepcionista no ve Estadísticas")
     void receptionistCannotSeeStatisticsNav() {
-        new LoginPage(driver, wait).login(webBase(), "recepcion@fitlife.com", "recepcion123");
+        new LoginPage(driver, wait).login(webBase(), TestCredentials.RECEPTION_EMAIL, TestCredentials.RECEPTION_PASSWORD);
         AppShellPage shell = new AppShellPage(driver, wait, webBase());
         shell.waitForAuthenticatedShell();
 
@@ -47,7 +48,7 @@ class RoleNavigationSeleniumTest extends BaseSeleniumTest {
     @Test
     @DisplayName("TC-LOGOUT-001: Cerrar sesión vuelve al login")
     void logoutReturnsToLogin() {
-        new LoginPage(driver, wait).login(webBase(), "admin@fitlife.com", "12345678");
+        new LoginPage(driver, wait).login(webBase(), TestCredentials.ADMIN_EMAIL, TestCredentials.ADMIN_PASSWORD);
         AppShellPage shell = new AppShellPage(driver, wait, webBase());
         shell.waitForAuthenticatedShell();
         shell.logout();

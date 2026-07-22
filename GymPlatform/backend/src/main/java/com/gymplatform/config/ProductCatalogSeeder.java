@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Catálogo demo de tienda para FitLife (solo si aún no hay productos).
+ * Catálogo demo de tienda para GymPlatform (solo si aún no hay productos).
  */
 @Component
 @Order(25)
@@ -52,7 +52,7 @@ public class ProductCatalogSeeder implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) {
-        organizationRepository.findBySlug("fitlife").ifPresent(this::seedIfEmpty);
+        organizationRepository.findBySlug(DemoSeedConstants.ORG_SLUG).ifPresent(this::seedIfEmpty);
     }
 
     private void seedIfEmpty(Organization org) {
@@ -149,7 +149,7 @@ public class ProductCatalogSeeder implements ApplicationRunner {
             productRepository.save(product);
             created++;
         }
-        log.info("Catálogo demo FitLife: {} productos creados", created);
+        log.info("Catálogo demo GymPlatform: {} productos creados", created);
     }
 
     private String uniqueCode(Long orgId, String base) {

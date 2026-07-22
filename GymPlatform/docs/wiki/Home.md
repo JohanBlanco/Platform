@@ -38,10 +38,10 @@ Detalle: [Guía de pruebas](Testing-Guide)
 
 | Rol | Email | Contraseña |
 |-----|-------|------------|
-| Administrador | admin@fitlife.com | 12345678 |
-| Instructor | instructor@fitlife.com | instructor123 |
-| Recepcionista | recepcion@fitlife.com | recepcion123 |
-| Miembro | miembro@fitlife.com | miembro123 |
+| Administrador | admin@gymplatform.local | 12345678 |
+| Instructor | instructor@gymplatform.local | instructor123 |
+| Recepcionista | recepcion@gymplatform.local | recepcion123 |
+| Miembro | miembro@gymplatform.local | miembro123 |
 
 El administrador demo puede cambiar de perfil (Administrador / Recepcionista / Instructor / Miembro) para probar el switch.
 

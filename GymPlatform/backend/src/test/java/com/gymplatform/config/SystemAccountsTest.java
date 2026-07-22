@@ -22,12 +22,12 @@ class SystemAccountsTest {
     @Test
     void ignoresRegularUsersAndNulls() {
         User user = new User();
-        user.setEmail("admin@fitlife.com");
+        user.setEmail("admin@gymplatform.local");
 
         assertFalse(SystemAccounts.isBootstrapUser(null));
         assertFalse(SystemAccounts.isBootstrapUser(user));
         assertFalse(SystemAccounts.isBootstrapEmail(null));
-        assertFalse(SystemAccounts.isBootstrapEmail("admin@fitlife.com"));
+        assertFalse(SystemAccounts.isBootstrapEmail("admin@gymplatform.local"));
     }
 
     @Test

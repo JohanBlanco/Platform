@@ -1,7 +1,6 @@
 package com.gymplatform.config;
 
 import com.gymplatform.domain.entity.Organization;
-import com.gymplatform.domain.enums.SubscriptionStatus;
 import com.gymplatform.repository.OrganizationRepository;
 import com.gymplatform.repository.UserRepository;
 import com.gymplatform.service.CustomFormService;
@@ -19,15 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Administrador bootstrap oculto en la UI ({@link SystemAccounts}).
- * Si existe FitLife demo, se adjunta a ese gym para probar toda la web visualmente.
+ * Si existe el gimnasio demo ({@link DemoSeedConstants#ORG_SLUG}), se adjunta a ese org.
  */
 @Component
 @Order(6)
 public class DefaultAdminBootstrap implements ApplicationRunner {
 
     private static final Logger log = LoggerFactory.getLogger(DefaultAdminBootstrap.class);
-
-    private static final String FITLIFE_SLUG = "fitlife";
 
     private final OrganizationRepository organizationRepository;
     private final UserRepository userRepository;
@@ -60,10 +57,10 @@ public class DefaultAdminBootstrap implements ApplicationRunner {
         printCredentials(organizationId);
     }
 
-    /** FitLife demo si existe; si no, org técnica GymPlatform (prod vacío). */
+    /** Gimnasio demo si existe; si no, org técnica GymPlatform (prod vacío). */
     private long resolveBootstrapOrganizationId() {
         return organizationRepository
-                .findBySlug(FITLIFE_SLUG)
+                .findBySlug(DemoSeedConstants.ORG_SLUG)
                 .map(Organization::getId)
                 .orElseGet(this::createBootstrapOrganization);
     }
@@ -85,7 +82,7 @@ public class DefaultAdminBootstrap implements ApplicationRunner {
                 DefaultAdminCredentials.ORG_ID,
                 DefaultAdminCredentials.ORG_NAME,
                 DefaultAdminCredentials.ORG_SLUG,
-                "admin@gymplatform.local");
+                DemoSeedConstants.ADMIN_EMAIL);
         customFormService.ensureSystemForms(DefaultAdminCredentials.ORG_ID);
         log.info("Organización bootstrap creada: {} (id={})",
                 DefaultAdminCredentials.ORG_SLUG, DefaultAdminCredentials.ORG_ID);
@@ -156,7 +153,8 @@ public class DefaultAdminBootstrap implements ApplicationRunner {
         System.out.println("Login:          " + DefaultAdminCredentials.LOGIN);
         System.out.println("Contraseña:     " + DefaultAdminCredentials.PASSWORD);
         System.out.println("Organización:   id " + organizationId
-                + " (FitLife demo si existe, si no slug " + DefaultAdminCredentials.ORG_SLUG + ")");
+                + " (demo " + DemoSeedConstants.ORG_SLUG + " si existe, si no slug "
+                + DefaultAdminCredentials.ORG_SLUG + ")");
         System.out.println("============================================================");
     }
 }

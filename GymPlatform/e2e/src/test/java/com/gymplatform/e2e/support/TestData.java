@@ -13,7 +13,7 @@ public final class TestData {
     }
 
     public static String uniqueEmail(String prefix) {
-        return prefix + "+" + suffix() + "@e2e.fitlife.test";
+        return prefix + "+" + suffix() + "@e2e.gymplatform.test";
     }
 
     public static String uniqueNationalId() {

@@ -146,7 +146,7 @@ sequenceDiagram
 | ¿Vista miembro? | `isMemberView(activeRole)` |
 | Permisos de menú | `canViewReception`, `canViewVentas`, etc. en `roles.ts` |
 
-El administrador demo (`admin@fitlife.com`) tiene varios roles: al cambiar a **Miembro** se usa la misma cuenta/userId (no el de `miembro@fitlife.com`).
+El administrador demo (`admin@gymplatform.local`) tiene varios roles: al cambiar a **Miembro** se usa la misma cuenta/userId (no el de `miembro@gymplatform.local`).
 
 ---
 

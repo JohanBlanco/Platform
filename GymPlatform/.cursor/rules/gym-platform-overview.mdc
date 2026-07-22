@@ -38,27 +38,27 @@ Al hacer cambios significativos, actualizar:
 |-------|------------|
 | `gymplatformadmin` | `gymplatformadmin` |
 
-Solo pruebas visuales; no aparece en listados. Con demo FitLife se adjunta a org `fitlife`.
+Solo pruebas visuales; no aparece en listados. Con demo GymPlatform se adjunta a org `gymplatform-demo`.
 
-**FitLife demo** (solo `dev` / `dev-postgresql` con seeds):
+**GymPlatform demo** (solo `dev` / `dev-postgresql` con seeds):
 
-- Administrador: `admin@fitlife.com` / `12345678` (perfiles: Administrador, Recepcionista, Instructor, Miembro — para probar el switch)
-- Instructor: `instructor@fitlife.com` / `instructor123`
-- Recepcionista: `recepcion@fitlife.com` / `recepcion123`
-- Miembro: `miembro@fitlife.com` / `miembro123`
+- Administrador: `admin@gymplatform.local` / `12345678` (perfiles: Administrador, Recepcionista, Instructor, Miembro — para probar el switch)
+- Instructor: `instructor@gymplatform.local` / `instructor123`
+- Recepcionista: `recepcion@gymplatform.local` / `recepcion123`
+- Miembro: `miembro@gymplatform.local` / `miembro123`
 
 **Datos demo:** `backend/src/main/resources/db/demo-seed*.sql` (H2) y `db/postgres/demo-seed-all.sql` (PostgreSQL). Recargar PG: `bash backend/scripts/load-postgres-demo.sh`.
 
 **Arranque backend:** ver `backend/README.md` — `dev` (default), `dev-postgresql` (+ Docker), `prod`.
 
-**Marca:** color default de GymPlatform / orgs nuevas / FitLife demo = **indigo**.
+**Marca:** color default de GymPlatform / orgs nuevas / demo = **indigo**.
 
-**Miembro demo** (`miembro@fitlife.com` / `miembro123`): rutina, nutrición, medidas, reservas y citas.
+**Miembro demo** (`miembro@gymplatform.local` / `miembro123`): rutina, nutrición, medidas, reservas y citas.
 
 ## Contraseña por defecto (usuarios staff)
 
 - Al crear **usuarios del gym** (`POST /api/users`) sin `password`, se usa **`12345678`**
-- Áreas privadas / estadísticas (demo FitLife): **`12345678`**
+- Áreas privadas / estadísticas (demo GymPlatform): **`12345678`**
 - Roles asignables por gym: `GYM_OWNER`, `INSTRUCTOR`, `MEMBER`, `RECEPTIONIST`
 - El auto-registro de miembros (`POST /api/auth/register/{orgId}`) sigue requiriendo que el usuario elija su contraseña
 

@@ -179,7 +179,7 @@ export default function GymProfileSection() {
       </div>
       <div className="form-group">
         <label htmlFor="gym-social">Instagram / red social</label>
-        <input id="gym-social" value={socialHandle} onChange={(e) => setSocialHandle(e.target.value)} placeholder="@bullsgym" />
+        <input id="gym-social" value={socialHandle} onChange={(e) => setSocialHandle(e.target.value)} placeholder="@gymplatform" />
       </div>
 
       <div className="form-group">

@@ -74,10 +74,10 @@ cd web && npm run dev
 
 | Rol | Email | Contraseña |
 |-----|-------|------------|
-| Administrador | admin@fitlife.com | 12345678 |
-| Instructor | instructor@fitlife.com | instructor123 |
-| Recepcionista | recepcion@fitlife.com | recepcion123 |
-| Miembro | miembro@fitlife.com | miembro123 |
+| Administrador | admin@gymplatform.local | 12345678 |
+| Instructor | instructor@gymplatform.local | instructor123 |
+| Recepcionista | recepcion@gymplatform.local | recepcion123 |
+| Miembro | miembro@gymplatform.local | miembro123 |
 
 Áreas privadas / estadísticas: `12345678`
 
@@ -112,7 +112,7 @@ docker compose down -v    # reset total de datos
 
 ## Importante recordar
 
-1. **Datos H2 no migran solos** a PostgreSQL. Postgres empieza vacío + seeds demo FitLife.
+1. **Datos H2 no migran solos** a PostgreSQL. Postgres empieza vacío + seeds demo GymPlatform.
 2. **`layout--mobile` en web** = diseño responsive del panel, no app Flutter.
 3. **`Spring/Java/my-app`** puede seguir existiendo aparte; el repo activo es `Platform/GymPlatform`.
 4. **Próximos pasos naturales:** probar Docker + perfil `postgres` → Flyway → despliegue Render/Neon/Vercel.

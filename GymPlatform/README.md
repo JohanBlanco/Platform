@@ -77,9 +77,9 @@ GymPlatform/
 | Uso | Login | Contraseña |
 |-----|-------|------------|
 | **Bootstrap (todos los perfiles)** | `gymplatformadmin` | `gymplatformadmin` |
-| FitLife demo (`dev` / `dev-postgresql`) | `admin@fitlife.com` | `12345678` |
-| Instructor demo | `instructor@fitlife.com` | `instructor123` |
-| Recepcionista demo | `recepcion@fitlife.com` | `recepcion123` |
-| Miembro demo | `miembro@fitlife.com` | `miembro123` |
+| **GymPlatform demo** (`dev` / `dev-postgresql`) | `admin@gymplatform.local` | `12345678` |
+| Instructor demo | `instructor@gymplatform.local` | `instructor123` |
+| Recepcionista demo | `recepcion@gymplatform.local` | `recepcion123` |
+| Miembro demo | `miembro@gymplatform.local` | `miembro123` |
 
 **Contraseña por defecto** al crear un usuario staff (sin indicar password): `12345678`

@@ -1,7 +1,7 @@
 -- =============================================================================
 -- GymPlatform — datos demo para perfiles staff-como-miembro (administrador / recepción)
 -- =============================================================================
--- Se carga si admin@fitlife.com (user 4) no tiene rutinas.
+-- Se carga si admin@gymplatform.local (user 4) no tiene rutinas.
 -- Así al cambiar a perfil «Miembro» hay citas, actividades, rutinas y nutrición.
 -- También refuerza citas futuras de Luis (5).
 -- =============================================================================

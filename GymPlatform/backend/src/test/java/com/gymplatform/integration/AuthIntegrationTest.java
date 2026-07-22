@@ -3,6 +3,7 @@ package com.gymplatform.integration;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gymplatform.config.DefaultAdminCredentials;
+import com.gymplatform.config.DemoSeedConstants;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -44,12 +45,12 @@ class AuthIntegrationTest {
     }
 
     @Test
-    void loginWithFitLifeAdmin() throws Exception {
+    void loginWithDemoAdmin() throws Exception {
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"login":"admin@fitlife.com","password":"12345678"}
-                                """))
+                                {"login":"%s","password":"12345678"}
+                                """.formatted(DemoSeedConstants.ADMIN_EMAIL)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").isNotEmpty())
                 .andExpect(jsonPath("$.roles").isArray());
@@ -60,8 +61,8 @@ class AuthIntegrationTest {
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {"login":"admin@fitlife.com","password":"wrong-password"}
-                                """))
+                                {"login":"%s","password":"wrong-password"}
+                                """.formatted(DemoSeedConstants.ADMIN_EMAIL)))
                 .andExpect(status().isUnauthorized());
     }
 
@@ -83,12 +84,12 @@ class AuthIntegrationTest {
 
     @Test
     void meEndpointReturnsSession() throws Exception {
-        String token = loginAndGetToken("admin@fitlife.com", "12345678");
+        String token = loginAndGetToken(DemoSeedConstants.ADMIN_EMAIL, "12345678");
 
         mockMvc.perform(get("/api/auth/me")
                         .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email").value("admin@fitlife.com"));
+                .andExpect(jsonPath("$.email").value(DemoSeedConstants.ADMIN_EMAIL));
     }
 
     private String loginAndGetToken(String login, String password) throws Exception {

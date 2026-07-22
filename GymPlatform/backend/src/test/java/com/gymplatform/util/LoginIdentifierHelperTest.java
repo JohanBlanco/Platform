@@ -27,13 +27,13 @@ class LoginIdentifierHelperTest {
 
     @Test
     void resolvesByEmail() {
-        User user = activeUser("admin@fitlife.com");
-        when(userRepository.findByEmailIgnoreCase("admin@fitlife.com")).thenReturn(Optional.of(user));
+        User user = activeUser("admin@gymplatform.local");
+        when(userRepository.findByEmailIgnoreCase("admin@gymplatform.local")).thenReturn(Optional.of(user));
 
-        Optional<User> found = LoginIdentifierHelper.resolveUser(userRepository, "admin@fitlife.com");
+        Optional<User> found = LoginIdentifierHelper.resolveUser(userRepository, "admin@gymplatform.local");
 
         assertTrue(found.isPresent());
-        assertEquals("admin@fitlife.com", found.get().getEmail());
+        assertEquals("admin@gymplatform.local", found.get().getEmail());
     }
 
     @Test
@@ -49,7 +49,7 @@ class LoginIdentifierHelperTest {
 
     @Test
     void resolvesByNationalId() {
-        User user = activeUser("miembro@fitlife.com");
+        User user = activeUser("miembro@gymplatform.local");
         user.setNationalId("190205678");
         when(userRepository.findAllByNationalId("190205678")).thenReturn(List.of(user));
 
@@ -60,11 +60,11 @@ class LoginIdentifierHelperTest {
 
     @Test
     void rejectsInactiveUser() {
-        User inactive = activeUser("admin@fitlife.com");
+        User inactive = activeUser("admin@gymplatform.local");
         inactive.setActive(false);
-        when(userRepository.findByEmailIgnoreCase("admin@fitlife.com")).thenReturn(Optional.of(inactive));
+        when(userRepository.findByEmailIgnoreCase("admin@gymplatform.local")).thenReturn(Optional.of(inactive));
 
-        assertTrue(LoginIdentifierHelper.resolveUser(userRepository, "admin@fitlife.com").isEmpty());
+        assertTrue(LoginIdentifierHelper.resolveUser(userRepository, "admin@gymplatform.local").isEmpty());
     }
 
     @Test

@@ -106,7 +106,7 @@ CI: `.github/workflows/tests.yml` ejecuta backend H2 y PG en cada push/PR.
 
 ## Administrador (`GYM_OWNER`)
 
-**Login:** `admin@fitlife.com` / `12345678`
+**Login:** `admin@gymplatform.local` / `12345678`
 
 ### Web — Administración
 
@@ -125,13 +125,13 @@ CI: `.github/workflows/tests.yml` ejecuta backend H2 y PG en cada push/PR.
 
 ### Resultado esperado
 
-Operaciones scoped al `organizationId` del JWT (FitLife / Bulls Gym).
+Operaciones scoped al `organizationId` del JWT (GymPlatform demo).
 
 ---
 
 ## Instructor
 
-**Login:** `instructor@fitlife.com` / `instructor123`
+**Login:** `instructor@gymplatform.local` / `instructor123`
 
 ### Web
 
@@ -151,7 +151,7 @@ Operaciones scoped al `organizationId` del JWT (FitLife / Bulls Gym).
 
 ## Miembro
 
-**Login:** `miembro@fitlife.com` / `miembro123`
+**Login:** `miembro@gymplatform.local` / `miembro123`
 
 ### Web
 
@@ -166,7 +166,7 @@ Operaciones scoped al `organizationId` del JWT (FitLife / Bulls Gym).
 
 ## Recepcionista
 
-**Login:** `recepcion@fitlife.com` / `recepcion123`
+**Login:** `recepcion@gymplatform.local` / `recepcion123`
 
 - [ ] Usuarios, productos, POS
 - [ ] No debe entrar a estadísticas (solo administrador)

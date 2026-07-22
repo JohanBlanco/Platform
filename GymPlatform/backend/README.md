@@ -16,6 +16,19 @@ Spring Boot 3 API con tres perfiles de base de datos.
 
 Cada perfil define su propio bean `DataSource` en `DataSourceConfiguration.java`.
 
+## Deploy en Render
+
+El repo tiene `Dockerfile` en la raíz de `GymPlatform/` (recomendado). Render **no** debe usar runtime Node (hay `package.json` de docs).
+
+| Campo | Valor |
+|-------|--------|
+| **Root Directory** | `GymPlatform` |
+| **Runtime** | **Docker** (o Java 17 si no usas Docker) |
+| **Build** *(solo Java)* | `cd backend && mvn -DskipTests package` |
+| **Start** *(solo Java)* | `cd backend && java -jar target/gym-platform-api-1.0.0.jar` |
+
+Variables de entorno: ver `docs/env.example` (`DB_URL`, `DB_USER`, `DB_PASSWORD`, `APP_JWT_SECRET`, etc.).
+
 ## Comandos
 
 ### 1. dev — H2 (default)
@@ -87,7 +100,7 @@ $env:DB_PASSWORD="tu_password"
 mvn spring-boot:run
 ```
 
-`prod` usa `ddl-auto=validate` y **no** carga datos demo FitLife (`app.demo.seed-enabled=false`), pero **sí** crea el admin bootstrap `gymplatformadmin`.
+`prod` usa `ddl-auto=validate` y **no** carga datos demo GymPlatform (`app.demo.seed-enabled=false`), pero **sí** crea el admin bootstrap `gymplatformadmin`.
 
 ## Seeds SQL
 
@@ -133,7 +146,7 @@ mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev-pos
 | Login | Uso |
 |-------|-----|
 | `gymplatformadmin` / `gymplatformadmin` | Pruebas visuales — **oculto** en listados UI |
-| `admin@fitlife.com` / `12345678` | Demo FitLife visible |
+| `admin@gymplatform.local` / `12345678` | Demo GymPlatform visible |
 
 Comprueba arranque sin errores en **dev**, **dev-postgresql** y **prod** (local):
 
@@ -149,4 +162,4 @@ Requiere Docker para PostgreSQL. El script limpia H2 dev, resetea el volumen PG 
 - API: http://localhost:8080
 - Swagger: http://localhost:8080/swagger-ui.html
 - Login demo: `gymplatformadmin` / `gymplatformadmin` (todos los perfiles)
-- FitLife demo: `admin@fitlife.com` / `12345678` (perfiles `dev` y `dev-postgresql`)
+- GymPlatform demo: `admin@gymplatform.local` / `12345678` (perfiles `dev` y `dev-postgresql`)

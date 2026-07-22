@@ -19,7 +19,7 @@
 ## Administrador (`GYM_OWNER`)
 
 - Etiqueta en UI: **Administrador** (no “dueño”)
-- Login demo: `admin@fitlife.com` / `12345678`
+- Login demo: `admin@gymplatform.local` / `12345678`
 - Puede cambiar de perfil (Recepcionista, Instructor, Miembro) si tiene esos roles
 - Contraseña por defecto al crear staff sin password: **`12345678`**
 

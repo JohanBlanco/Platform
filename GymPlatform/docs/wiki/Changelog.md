@@ -14,6 +14,13 @@ _Auto-sync desde commit `a7c1833`_
 
 Bitácora de cambios. Actualizar en cada sesión de trabajo.
 
+## 2026-07-21 — Demo renombrado a GymPlatform
+
+- Organización demo: slug `gymplatform-demo`, nombre **GymPlatform** (sin nombre GTM ficticio).
+- Cuentas demo: `@gymplatform.local` (`admin`, `instructor`, `recepcion`, `miembro`).
+- Migración automática al arrancar si tenías datos demo antiguos en local.
+- **Reset recomendado:** borra `backend/data/gymdb*.db` o `docker compose down -v` para seeds limpios.
+
 ---
 
 <!-- AUTO:3a6729479bb3693f5f3403ad8d6ce5995d55b6b9 -->
@@ -45,11 +52,11 @@ _Auto-sync desde commit `3a67294`_
 ### Qué se hizo
 - Eliminada la UX de PLATFORM_OWNER (web `/platform`, móvil `platform_screen`, APIs de cliente).
 - `/api/platform/**` denegado; login de plataforma rechazado.
-- Cuenta demo: `admin@fitlife.com` (antes `dueno@fitlife.com`); etiqueta UI **Administrador**.
+- Cuenta demo: `admin@gymplatform.local` (antes `dueno@gymplatform.local`); etiqueta UI **Administrador**.
 - Docs y cursor rules actualizados.
 
 ### Cómo probarlo
-1. Login `admin@fitlife.com` / `12345678`.
+1. Login `admin@gymplatform.local` / `12345678`.
 2. Confirmar que no hay menú “Clientes”.
 3. `/platform` redirige al inicio.
 
@@ -73,7 +80,7 @@ _Auto-sync desde commit `3a67294`_
 
 ### Qué se hizo
 - Nuevo `db/demo-seed-sales.sql`: cajas, ventas, ítems y pagos (mes actual + anterior).
-- `DemoSqlSeeder` carga ventas si FitLife no tiene `store_sales`; asegura contraseña de áreas privadas (`12345678`) e indigo.
+- `DemoSqlSeeder` carga ventas si GymPlatform no tiene `store_sales`; asegura contraseña de áreas privadas (`12345678`) e indigo.
 
 ### Cómo probarlo
 1. Reiniciar backend (si ya había gym sin ventas, arranca y carga solo el script de ventas).
@@ -84,12 +91,12 @@ _Auto-sync desde commit `3a67294`_
 
 ### Qué se hizo
 - Fuente de verdad de datos demo: `backend/src/main/resources/db/demo-seed.sql`.
-- `DemoSqlSeeder` carga el SQL al arrancar si no existe el gym `fitlife`.
+- `DemoSqlSeeder` carga el SQL al arrancar si no existe el gym `gymplatform-demo`.
 - El antiguo `DataSeeder` Java quedó desactivado.
 
 ### Cómo probarlo
 1. Detener backend, borrar `backend/data/gymdb*.db`, arrancar de nuevo.
-2. Login `dueno@fitlife.com` / `12345678` — miembros, actividades, productos, mercadeo.
+2. Login `dueno@gymplatform.local` / `12345678` — miembros, actividades, productos, mercadeo.
 3. Para agregar data demo: editar `demo-seed.sql` y regenerar la DB.
 
 ---
@@ -118,7 +125,7 @@ _Auto-sync desde commit `3a67294`_
 - La gestión de promociones salió de Inicio / Agenda y vive solo en Mercadeo.
 
 ### Cómo probarlo
-1. Login como `dueno@fitlife.com` / `12345678` → menú **Mercadeo**.
+1. Login como `dueno@gymplatform.local` / `12345678` → menú **Mercadeo**.
 2. En Actividades: subir una imagen a un espacio del carrusel.
 3. En Productos: crear oferta 30% OFF y verificar etiqueta en Punto de venta.
 4. En Decoración: aplicar Navidad o Halloween y ver el borde/ambiente en la app.

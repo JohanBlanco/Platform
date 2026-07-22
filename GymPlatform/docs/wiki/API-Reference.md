@@ -50,7 +50,7 @@ Descarga el spec en: http://localhost:8080/v3/api-docs
 # Login
 curl -s -X POST http://localhost:8080/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"miembro@fitlife.com","password":"miembro123"}'
+  -d '{"email":"miembro@gymplatform.local","password":"miembro123"}'
 
 # Usar token
 curl -s http://localhost:8080/api/activities \

@@ -9,7 +9,7 @@ GymPlatform es el **panel de un gimnasio**: usuarios, membresías, actividades, 
 ```
 ┌─────────────────────────────────────┐
 │         Gimnasio (Organization)     │
-│   Bulls Gym / FitLife (demo)        │
+│   GymPlatform (demo)                │
 └────────────────┬────────────────────┘
                  │
     Usuarios (Administrador, Recepción, Instructor, Miembro)

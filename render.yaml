@@ -1,0 +1,16 @@
+# GymPlatform API — Render Blueprint
+# Docs: https://render.com/docs/blueprint-spec
+# Env vars sensibles (DB_*, APP_JWT_SECRET, etc.) → Dashboard → Environment
+
+services:
+  - type: web
+    name: gymplatform-api
+    runtime: docker
+    rootDir: GymPlatform
+    plan: free
+    healthCheckPath: /swagger-ui.html
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: validate

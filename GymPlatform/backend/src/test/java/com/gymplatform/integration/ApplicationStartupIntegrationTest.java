@@ -1,5 +1,6 @@
 package com.gymplatform.integration;
 
+import com.gymplatform.config.DemoSeedConstants;
 import com.gymplatform.repository.OrganizationRepository;
 import com.gymplatform.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -21,8 +22,8 @@ class ApplicationStartupIntegrationTest {
 
     @Test
     void loadsDemoDataAndBootstrapAdmin() {
-        assertTrue(organizationRepository.findBySlug("fitlife").isPresent());
-        assertTrue(userRepository.findByEmailIgnoreCase("admin@fitlife.com").isPresent());
+        assertTrue(organizationRepository.findBySlug(DemoSeedConstants.ORG_SLUG).isPresent());
+        assertTrue(userRepository.findByEmailIgnoreCase(DemoSeedConstants.ADMIN_EMAIL).isPresent());
         assertTrue(userRepository.findByEmailIgnoreCase("gymplatformadmin@gymplatform.local").isPresent());
     }
 }

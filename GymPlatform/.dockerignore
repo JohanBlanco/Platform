@@ -1,0 +1,10 @@
+node_modules/
+.tmp-wiki-sync/
+backend/target/
+backend/data/
+web/node_modules/
+web/dist/
+e2e/target/
+.git/
+.env
+.env.*

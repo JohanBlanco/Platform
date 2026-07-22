@@ -1,6 +1,7 @@
 package com.gymplatform.integration;
 
 import com.gymplatform.config.DefaultAdminCredentials;
+import com.gymplatform.config.DemoSeedConstants;
 import com.gymplatform.repository.UserRepository;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,7 @@ class PostgresIntegrationTest {
 
     @Test
     void startsWithPostgresAndSeedsDemo() {
-        assertTrue(userRepository.findByEmailIgnoreCase("admin@fitlife.com").isPresent());
+        assertTrue(userRepository.findByEmailIgnoreCase(DemoSeedConstants.ADMIN_EMAIL).isPresent());
         assertTrue(userRepository.findByEmailIgnoreCase(DefaultAdminCredentials.EMAIL).isPresent());
     }
 }

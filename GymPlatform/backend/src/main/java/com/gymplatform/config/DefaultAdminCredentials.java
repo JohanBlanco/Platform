@@ -11,7 +11,7 @@ public final class DefaultAdminCredentials {
     public static final String ORG_SLUG = "gymplatform";
     public static final String ORG_NAME = "GymPlatform";
 
-    /** IDs reservados (demo FitLife usa 1–99). */
+    /** IDs reservados (demo GymPlatform usa 1–99). */
     public static final long ORG_ID = 100L;
     public static final long USER_ID = 100L;
 

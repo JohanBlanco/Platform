@@ -1,7 +1,7 @@
 -- =============================================================================
 -- GymPlatform — ventas demo (caja + store_sales) para dashboard de estadísticas
 -- =============================================================================
--- Se carga si FitLife no tiene ventas (DemoSqlSeeder).
+-- Se carga si GymPlatform no tiene ventas (DemoSqlSeeder).
 -- organization_id = 1 | cajeros 3/4 | miembros 5–11 | productos 1–10 | paquetes 1–3
 -- Áreas privadas (estadísticas): 12345678
 -- Fechas relativas a CURRENT_DATE / CURRENT_TIMESTAMP

@@ -34,10 +34,10 @@ Docs: `docs/wiki/Tech-Stack.md`, `Database-ERD.md`, `Frontend.md`, `Migrate-H2-t
 
 | Rol | Email | Contraseña | Notas |
 |-----|-------|------------|-------|
-| Administrador | admin@fitlife.com | 12345678 | Perfiles: Admin, Recepcionista, Instructor, Miembro |
-| Instructor | instructor@fitlife.com | instructor123 | |
-| Recepcionista | recepcion@fitlife.com | recepcion123 | |
-| Miembro | miembro@fitlife.com | miembro123 | |
+| Administrador | admin@gymplatform.local | 12345678 | Perfiles: Admin, Recepcionista, Instructor, Miembro |
+| Instructor | instructor@gymplatform.local | instructor123 | |
+| Recepcionista | recepcion@gymplatform.local | recepcion123 | |
+| Miembro | miembro@gymplatform.local | miembro123 | |
 
 - **Staff nuevo** sin password: `12345678`
 - **Áreas privadas / estadísticas:** `12345678`
@@ -91,7 +91,7 @@ Ver tabla de cuentas demo arriba.
 ## Guía de pruebas por rol
 
 ### Administrador
-1. Login `admin@fitlife.com` → panel del gym
+1. Login `admin@gymplatform.local` → panel del gym
 2. Administración / ventas / estadísticas
 3. Switch a perfil Miembro
 

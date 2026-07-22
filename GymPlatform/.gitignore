@@ -1,3 +1,7 @@
 .tmp-wiki-sync/
 node_modules/
 backend/data/
+.env
+.env.*
+!.env.example
+!docs/env.example
