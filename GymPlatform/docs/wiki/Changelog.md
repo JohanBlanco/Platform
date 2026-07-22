@@ -1,4 +1,16 @@
 
+<!-- AUTO:03808f18b74ae11f3688709c1c2bfcc205fbaeb2 -->
+## 2026-07-21 — message
+
+_Auto-sync desde commit `03808f1`_
+
+### Docs actualizados automáticamente
+- [x] Timestamps wiki
+- [x] Changelog
+- [x] API Reference (si --full)
+
+---
+
 <!-- AUTO:84b0977ad1cd384fc6b2a961f4a0ff8dff6cdb5c -->
 ## 2026-07-21 — fix: prepare Docker deploy for Render
 
