@@ -2,8 +2,12 @@ name: Tests
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   pull_request:
+
+defaults:
+  run:
+    working-directory: GymPlatform
 
 jobs:
   backend:
@@ -17,9 +21,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+          cache-dependency-path: GymPlatform/backend/pom.xml
 
       - name: Run unit and integration tests (H2)
-        working-directory: backend
+        working-directory: GymPlatform/backend
         run: mvn -B test
 
   backend-postgres:
@@ -33,7 +38,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+          cache-dependency-path: GymPlatform/backend/pom.xml
 
       - name: Run PostgreSQL integration test (Testcontainers)
-        working-directory: backend
+        working-directory: GymPlatform/backend
         run: mvn -B -Ppostgres-it test -Dtest=PostgresIntegrationTest
