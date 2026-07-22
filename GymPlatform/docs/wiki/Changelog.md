@@ -1,4 +1,16 @@
 
+<!-- AUTO:d1139c7a18ce76f972daa71e5f3cdc0f7b0015e2 -->
+## 2026-07-21 — Fix Render prod startup: remove invalid auto-config exclude and harden JDBC wiring.
+
+_Auto-sync desde commit `d1139c7`_
+
+### Docs actualizados automáticamente
+- [x] Timestamps wiki
+- [x] Changelog
+- [x] API Reference (si --full)
+
+---
+
 <!-- AUTO:dbe0c4b9ca434ba0ea1f032777a2345da194af90 -->
 ## 2026-07-21 — Prevent prod from falling back to embedded H2 when DB env vars are missing.
 
