@@ -5,11 +5,20 @@
 # Dockerfile:     Dockerfile (default)
 # Build / Start:  (vacío — los define el Dockerfile)
 #
-# Environment (copiar desde .env local, NO commitear secrets):
+# Environment — obligatorio en Render → Environment:
+#
+# Opción A (recomendada, igual que .env local):
 #   SPRING_PROFILES_ACTIVE=prod
 #   DB_URL=jdbc:postgresql://HOST/neondb?sslmode=require
-#   DB_USER=
-#   DB_PASSWORD=
+#   DB_USER=neondb_owner
+#   DB_PASSWORD=***
+#
+# Opción B (connection string Neon tal cual):
+#   DATABASE_URL=postgresql://USER:PASS@HOST/neondb?sslmode=require
+#   SPRING_PROFILES_ACTIVE=prod
+#
+# También válidas: SPRING_DATASOURCE_URL / USERNAME / PASSWORD
+#
 #   SPRING_JPA_HIBERNATE_DDL_AUTO=validate
 #   APP_JWT_SECRET=
 #   APP_SECRETS_ENCRYPTION_KEY=
