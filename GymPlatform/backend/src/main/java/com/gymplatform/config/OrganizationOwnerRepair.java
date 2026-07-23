@@ -1,6 +1,7 @@
 package com.gymplatform.config;
 
 import com.gymplatform.domain.enums.Role;
+import com.gymplatform.domain.entity.Organization;
 import com.gymplatform.domain.entity.User;
 import com.gymplatform.repository.OrganizationRepository;
 import com.gymplatform.repository.UserRepository;
@@ -11,7 +12,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Crea el GYM_OWNER si una organización existe pero no tiene administrador
@@ -40,10 +40,12 @@ public class OrganizationOwnerRepair implements CommandLineRunner {
     }
 
     @Override
-    @Transactional
     public void run(String... args) {
         removeBootstrapOrgDuplicateOwners();
         organizationRepository.findAll().forEach(org -> {
+            if (shouldSkipOwnerRepair(org)) {
+                return;
+            }
             if (userService.organizationHasGymOwner(org.getId())) {
                 return;
             }
@@ -66,6 +68,12 @@ public class OrganizationOwnerRepair implements CommandLineRunner {
                         org.getName(), org.getId(), ex.getMessage());
             }
         });
+    }
+
+    /** Org técnica bootstrap: el admin real es gymplatformadmin, no contactEmail de la org. */
+    private boolean shouldSkipOwnerRepair(Organization org) {
+        return SystemAccounts.isBootstrapOrganization(org)
+                && userRepository.findByEmailIgnoreCase(DefaultAdminCredentials.EMAIL).isPresent();
     }
 
     /**
