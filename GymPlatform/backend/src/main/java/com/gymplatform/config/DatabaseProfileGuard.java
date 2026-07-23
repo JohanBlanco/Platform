@@ -38,7 +38,7 @@ public class DatabaseProfileGuard implements ApplicationRunner {
         String profile = active.length > 0 ? active[0] : "(ninguno)";
         throw new IllegalStateException(
                 "Perfil Spring desconocido: " + profile
-                        + ". Usa uno de: dev, test, dev-postgresql, prod"
+                        + ". Usa uno de: dev, test, dev-postgresql, dev-postgresql-empty, prod"
                         + " (¿escribiste dev-postgress con doble s?)");
     }
 }

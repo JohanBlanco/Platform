@@ -1,13 +1,23 @@
 # Scripts de prueba manual (QA)
 
-Cada caso tiene un ID trazable. Los marcados **AUTO** tienen equivalente Selenium en `e2e/src/test/java/com/gymplatform/e2e/qa/`.
+Cada caso tiene un ID trazable. Los marcados **AUTO** tienen equivalente en **Cypress** (`web/cypress/e2e/`) o Selenium (`e2e/src/test/java/.../qa/`).
 
 ## Pre-requisitos
+
+### Demo local (catálogo precargado)
 
 1. `docker compose up -d` (opcional, solo PG)
 2. Backend: `cd backend && mvn spring-boot:run`
 3. Web: `cd web && npm run dev`
 4. Cuentas demo en `.cursor/rules/gym-platform-overview.mdc`
+
+### Local E2E (BD vacía — QA completo)
+
+1. `bash scripts/e2e-reset-db.sh`
+2. Backend: `cd backend && mvn spring-boot:run -Dspring-boot.run.profiles=dev,e2e`
+3. Web: `cd web && npm run dev`
+4. Cypress: `cd web && npm run cy:run:local` (specs en `cypress/e2e/local/`)
+5. Login directo por rol (sin cambiar perfil): ver `web/cypress/README.md`
 
 ---
 
@@ -15,12 +25,12 @@ Cada caso tiene un ID trazable. Los marcados **AUTO** tienen equivalente Seleniu
 
 | ID | Pasos manuales | Resultado esperado | AUTO |
 |----|----------------|-------------------|------|
-| TC-LOGIN-001 | Abrir `/login` → `admin@gymplatform.local` / `12345678` → Iniciar sesión | Dashboard con sidebar; enlace **Administración** visible | ✅ `LoginFlowSeleniumTest#adminCanLogin` |
-| TC-LOGIN-002 | Credenciales incorrectas | Permanece en `/login`; toast de error | ✅ `LoginFlowSeleniumTest#invalidCredentialsStayOnLogin` |
-| TC-LOGIN-003 | `gymplatformadmin` / `gymplatformadmin` | Entra al panel (cuenta oculta en listados) | ✅ `LoginFlowSeleniumTest#bootstrapAdminCanLogin` |
-| TC-LOGIN-004 | Campo vacío → submit | Toast “Ingresa correo o cédula y contraseña” | — |
+| TC-LOGIN-001 | Abrir `/login` → `admin@gymplatform.local` / `12345678` → Iniciar sesión | Dashboard con sidebar; enlace **Administración** visible | ✅ Cypress + Selenium |
+| TC-LOGIN-002 | Credenciales incorrectas | Permanece en `/login`; toast de error | ✅ Cypress + Selenium |
+| TC-LOGIN-003 | `gymplatformadmin` / `gymplatformadmin` | Entra al panel (cuenta oculta en listados) | ✅ Cypress + Selenium |
+| TC-LOGIN-004 | Campo vacío → submit | Toast “Ingresa correo o cédula y contraseña” | ✅ Cypress |
 | TC-LOGIN-005 | Login por cédula demo miembro | `miembro@gymplatform.local` con cédula del seed | — |
-| TC-LOGOUT-001 | Menú usuario → Cerrar sesión | Redirige a `/login` | ✅ `RoleNavigationSeleniumTest#logoutReturnsToLogin` |
+| TC-LOGOUT-001 | Menú usuario → Cerrar sesión | Redirige a `/login` | ✅ Cypress + Selenium |
 
 ---
 
@@ -28,9 +38,9 @@ Cada caso tiene un ID trazable. Los marcados **AUTO** tienen equivalente Seleniu
 
 | ID | Pasos | Resultado | AUTO |
 |----|-------|-----------|------|
-| TC-ROLE-001 | Admin → menú → perfil **Miembro** | Sidebar muestra rutinas/reservaciones | ✅ `RoleNavigationSeleniumTest#adminSwitchesToMemberProfile` |
-| TC-MEMBER-001 | `miembro@gymplatform.local` / `miembro123` | Nav de miembro (servicios/reservaciones) | ✅ `RoleNavigationSeleniumTest#memberSeesMemberNav` |
-| TC-RECEP-001 | `recepcion@gymplatform.local` / `recepcion123` | Sin enlace **Estadísticas** | ✅ `RoleNavigationSeleniumTest#receptionistCannotSeeStatisticsNav` |
+| TC-ROLE-001 | Admin → menú → perfil **Miembro** | Sidebar muestra rutinas/reservaciones | ✅ Cypress + Selenium |
+| TC-MEMBER-001 | `miembro@gymplatform.local` / `miembro123` | Nav de miembro (servicios/reservaciones) | ✅ Cypress + Selenium |
+| TC-RECEP-001 | `recepcion@gymplatform.local` / `recepcion123` | Sin enlace **Estadísticas** | ✅ Cypress + Selenium |
 | TC-INST-001 | `instructor@gymplatform.local` / `instructor123` | Sección entrenamiento / plantillas | — |
 
 ---
@@ -64,5 +74,13 @@ cd backend && mvn test -Dtest=PostgresIntegrationTest
 
 # E2E Selenium (requiere backend + web corriendo)
 cd e2e && mvn test
-# o: bash e2e/scripts/run-e2e.sh
+
+# E2E Cypress — interactivo (ver navegador, recomendado QA)
+cd web && npm run cy:open
+
+# Cypress local headless
+cd web && npm run cy:run
+
+# Cypress contra Vercel prod (login + smoke; API Render debe estar despierta)
+cd web && npm run cy:run:prod
 ```

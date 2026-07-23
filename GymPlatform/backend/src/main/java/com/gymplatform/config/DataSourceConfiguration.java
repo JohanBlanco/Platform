@@ -22,7 +22,7 @@ public class DataSourceConfiguration {
     }
 
     @Bean
-    @Profile({DatabaseProfiles.DEV_POSTGRESQL, DatabaseProfiles.DEV_POSTGRESQL_TYPO})
+    @Profile({DatabaseProfiles.DEV_POSTGRESQL, DatabaseProfiles.DEV_POSTGRESQL_EMPTY, DatabaseProfiles.DEV_POSTGRESQL_TYPO})
     public DataSource devPostgresqlDataSource(DataSourceProperties properties) {
         return buildDataSource(properties, "dev-postgresql");
     }

@@ -26,6 +26,7 @@ import {
   type WhatsAppOutboundSelection,
 } from '../../utils/whatsappOutbound'
 import { DEFAULT_PASSWORD } from './constants'
+import { withoutBootstrapUsers } from '../../utils/systemAccounts'
 import { formatRoles, GYM_ROLES, MEMBERSHIP_STATUS_LABELS, membershipStatusBadgeClass, ROLE_LABELS, type GymRole } from '../../roles'
 
 const emptyForm = () => ({
@@ -67,7 +68,7 @@ export default function UsersSection() {
   const isEditing = selectedId !== null
 
   const load = () => {
-    api.getUsers().then(setUsers).catch(() => {})
+    api.getUsers().then((list) => setUsers(withoutBootstrapUsers(list))).catch(() => {})
     api.getPackages().then(setPackages).catch(() => {})
     api.getBroadcastTemplates('WHATSAPP').then(setTemplates).catch(() => setTemplates([]))
   }

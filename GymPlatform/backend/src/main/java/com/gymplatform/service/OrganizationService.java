@@ -14,7 +14,6 @@ import com.gymplatform.exception.BusinessException;
 import com.gymplatform.exception.ResourceNotFoundException;
 import com.gymplatform.repository.OrganizationRepository;
 import com.gymplatform.repository.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -27,7 +26,7 @@ public class OrganizationService {
     private final UserRepository userRepository;
     private final UserService userService;
     private final CustomFormService customFormService;
-    private final PasswordEncoder passwordEncoder;
+    private final StatisticsAccessService statisticsAccessService;
 
     private static final Set<String> ALLOWED_ACCENTS = Set.of("indigo", "emerald", "rose", "amber", "sky");
 
@@ -35,12 +34,12 @@ public class OrganizationService {
                                UserRepository userRepository,
                                UserService userService,
                                CustomFormService customFormService,
-                               PasswordEncoder passwordEncoder) {
+                               StatisticsAccessService statisticsAccessService) {
         this.organizationRepository = organizationRepository;
         this.userRepository = userRepository;
         this.userService = userService;
         this.customFormService = customFormService;
-        this.passwordEncoder = passwordEncoder;
+        this.statisticsAccessService = statisticsAccessService;
     }
 
     @Transactional
@@ -143,9 +142,7 @@ public class OrganizationService {
         if (actor.getOrganization() == null || !actor.getOrganization().getId().equals(organizationId)) {
             throw new BusinessException("No perteneces a este gimnasio");
         }
-        if (!passwordEncoder.matches(request.currentPassword(), actor.getPasswordHash())) {
-            throw new BusinessException("Contraseña incorrecta");
-        }
+        statisticsAccessService.assertAccessPasswordMatches(organizationId, request.currentPassword());
 
         Organization org = getById(organizationId);
         org.setName(request.name().trim());

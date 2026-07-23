@@ -94,7 +94,7 @@ public class GymController {
         return organizationService.getGymProfile(SecurityUtils.requireOrganizationId());
     }
 
-    @Operation(summary = "Actualizar perfil del gimnasio (solo admin; requiere contraseña)")
+    @Operation(summary = "Actualizar perfil del gimnasio (solo admin; requiere contraseña de áreas privadas)")
     @PutMapping("/organization")
     public GymOrganizationResponse updateMyOrganization(@Valid @RequestBody GymOrganizationUpdateRequest request) {
         return organizationService.updateGymProfile(

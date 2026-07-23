@@ -25,41 +25,49 @@ export default function RoutineRequestsPanel(_props: Props) {
     load()
   }, [])
 
-  const { filtered, filterInput } = useFilteredList(requests)
+  const searchExtras = (r: RoutineRequest) => [
+    r.preferredInstructorName ?? '',
+    r.assignedInstructorName ?? '',
+    r.goals,
+    r.description,
+  ]
 
-  if (loading) return <p>Cargando...</p>
+  const { filtered, filterInput } = useFilteredList(requests, searchExtras)
+
+  if (loading) return <p className="text-muted">Cargando…</p>
 
   return (
     <>
       {filterInput}
-      <div className="grid grid-2">
-        {requests.length === 0 ? (
-          <div className="empty-state card">Sin solicitudes pendientes</div>
-        ) : filtered.length === 0 ? (
-          <div className="empty-state card">Ningún resultado coincide con la búsqueda</div>
-        ) : (
-          filtered.map((r) => (
-            <div key={r.id} className="card routine-request-card">
-              <div className="card-list-header">
-                <div className="card-list-header-main">
-                  <h3>{r.memberName}</h3>
-                  <p className="card-list-meta">
-                    Instructor preferido: {r.preferredInstructorName ?? 'Cualquier instructor'}
-                    {r.assignedInstructorName ? ` · Atendiendo: ${r.assignedInstructorName}` : ''}
-                  </p>
+      {requests.length === 0 ? (
+        <p className="empty-state">Sin solicitudes pendientes</p>
+      ) : filtered.length === 0 ? (
+        <p className="empty-state">Ningún resultado coincide con la búsqueda</p>
+      ) : (
+        <ul className="staff-home-item-list">
+          {filtered.map((r) => (
+            <li key={r.id} className="staff-home-item-card routine-request-card">
+              <span className="staff-home-item-aside">Rutina</span>
+              <div className="staff-home-item-main">
+                <div className="staff-home-item-head">
+                  <h3 className="staff-home-item-title">{r.memberName}</h3>
+                  <RoutineRequestStatusBadge status={r.status} />
                 </div>
-                <RoutineRequestStatusBadge status={r.status} />
+                <p className="staff-home-item-meta">
+                  Instructor preferido: {r.preferredInstructorName ?? 'Cualquier instructor'}
+                  {r.assignedInstructorName ? ` · Atendiendo: ${r.assignedInstructorName}` : ''}
+                </p>
+                <p className="staff-home-item-meta staff-home-item-meta--clamp" title={r.description}>
+                  {r.description}
+                </p>
+                <p className="staff-home-item-meta staff-home-item-meta--clamp" title={r.goals}>
+                  Objetivos: {r.goals}
+                </p>
               </div>
-              <p className="card-list-body" title={r.description}>
-                {r.description}
-              </p>
-              <p className="card-list-meta card-list-meta--clamp" title={r.goals}>
-                Objetivos: {r.goals}
-              </p>
-            </div>
-          ))
-        )}
-      </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   )
 }

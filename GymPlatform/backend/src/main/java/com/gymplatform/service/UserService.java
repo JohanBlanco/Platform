@@ -325,6 +325,13 @@ public class UserService {
                 .findFirst();
     }
 
+    /** Incluye al bootstrap: evita auto-reparar un GYM_OWNER duplicado en org bootstrap. */
+    public boolean organizationHasGymOwner(Long organizationId) {
+        return userRepository.findByOrganizationIdAndRole(organizationId, Role.GYM_OWNER).stream()
+                .findAny()
+                .isPresent();
+    }
+
     @Transactional
     public void syncGymOwner(Long organizationId, String firstName, String lastName, String email, String password) {
         var owners = userRepository.findByOrganizationIdAndRole(organizationId, Role.GYM_OWNER).stream()
@@ -335,6 +342,27 @@ public class UserService {
         if (owner == null) {
             Organization org = organizationRepository.findById(organizationId)
                     .orElseThrow(() -> new ResourceNotFoundException("Organización no encontrada"));
+
+            var existingByEmail = userRepository.findByEmailIgnoreCase(email);
+            if (existingByEmail.isPresent()) {
+                User existing = existingByEmail.get();
+                if (existing.getOrganization() == null
+                        || !existing.getOrganization().getId().equals(organizationId)) {
+                    throw new BusinessException("El correo ya está registrado");
+                }
+                if (!existing.hasRole(Role.GYM_OWNER)) {
+                    existing.getRoles().add(Role.GYM_OWNER);
+                }
+                if (firstName != null && !firstName.isBlank()) {
+                    existing.setFirstName(firstName);
+                }
+                if (lastName != null && !lastName.isBlank()) {
+                    existing.setLastName(lastName);
+                }
+                userRepository.save(existing);
+                return;
+            }
+
             createStaff(organizationId, new UserCreateRequest(
                     firstName != null && !firstName.isBlank() ? firstName : "Administrador",
                     lastName != null && !lastName.isBlank() ? lastName : org.getName(),
