@@ -165,9 +165,8 @@ export default function EstadisticasResumenSection() {
     setUnlocking(true)
     try {
       if (!configured) {
-        await api.setStatisticsAccess(pwd)
-        setConfigured(true)
-        showSuccess('Contraseña de áreas privadas guardada')
+        showInfo('Primero define la contraseña en Configuración → Áreas privadas')
+        return
       }
       const result = await api.unlockStatistics(pwd)
       writeStatsUnlock(orgId, { token: result.unlockToken, expiresAt: result.expiresAt })
@@ -179,7 +178,7 @@ export default function EstadisticasResumenSection() {
       if (err instanceof ApiError && err.message.includes('administrador debe definir')) {
         setConfigured(false)
       }
-      showApiError(err, configured ? 'No se pudo desbloquear' : 'No se pudo guardar la contraseña')
+      showApiError(err, configured ? 'Contraseña de áreas privadas incorrecta' : 'No se pudo guardar la contraseña')
     } finally {
       setUnlocking(false)
     }
@@ -237,21 +236,24 @@ export default function EstadisticasResumenSection() {
         <h2>Área privada</h2>
         <p>
           {configured
-            ? 'Escribe la contraseña de áreas privadas para ver ingresos, gastos y ventas.'
-            : 'Aún no hay contraseña. Créala ahora para proteger Estadísticas (mínimo 4 caracteres).'}
+            ? 'Usa la contraseña de Configuración → Áreas privadas. No es la contraseña con la que inicias sesión.'
+            : 'Aún no hay contraseña. Créala en Configuración → Áreas privadas (mínimo 4 caracteres).'}
         </p>
         <form onSubmit={(e) => void handleUnlock(e)} className="stats-lock-form">
           <label htmlFor="stats-unlock-password">
-            {configured ? 'Contraseña' : 'Nueva contraseña'}
+            {configured ? 'Contraseña de áreas privadas' : 'Nueva contraseña de áreas privadas'}
           </label>
           <div className="statistics-access-password-row">
             <input
               id="stats-unlock-password"
+              name="private-areas-password"
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder={configured ? 'Contraseña' : 'Ej. 12345678'}
-              autoComplete={configured ? 'current-password' : 'new-password'}
+              placeholder={configured ? 'Contraseña de áreas privadas' : 'Ej. 12345678'}
+              autoComplete="new-password"
+              data-lpignore="true"
+              data-1p-ignore="true"
               autoFocus
               required
               minLength={4}

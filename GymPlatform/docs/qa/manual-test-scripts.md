@@ -4,10 +4,20 @@ Cada caso tiene un ID trazable. Los marcados **AUTO** tienen equivalente en **Cy
 
 ## Pre-requisitos
 
+### Demo local (catálogo precargado)
+
 1. `docker compose up -d` (opcional, solo PG)
 2. Backend: `cd backend && mvn spring-boot:run`
 3. Web: `cd web && npm run dev`
 4. Cuentas demo en `.cursor/rules/gym-platform-overview.mdc`
+
+### Local E2E (BD vacía — QA completo)
+
+1. `bash scripts/e2e-reset-db.sh`
+2. Backend: `cd backend && mvn spring-boot:run -Dspring-boot.run.profiles=dev,e2e`
+3. Web: `cd web && npm run dev`
+4. Cypress: `cd web && npm run cy:run:local` (specs en `cypress/e2e/local/`)
+5. Login directo por rol (sin cambiar perfil): ver `web/cypress/README.md`
 
 ---
 

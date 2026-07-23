@@ -11,6 +11,8 @@ public final class DatabaseProfiles {
     /** H2 en memoria para {@code mvn test} (ver {@code application-test.properties}). */
     public static final String TEST = "test";
     public static final String DEV_POSTGRESQL = "dev-postgresql";
+    /** PostgreSQL local sin datos demo ({@code app.demo.seed-enabled=false}). */
+    public static final String DEV_POSTGRESQL_EMPTY = "dev-postgresql-empty";
     /** Alias tolerado del typo frecuente {@code dev-postgress}. */
     public static final String DEV_POSTGRESQL_TYPO = "dev-postgress";
     public static final String PROD = "prod";
@@ -22,7 +24,7 @@ public final class DatabaseProfiles {
 
     public static boolean isPostgres(Environment environment) {
         return environment.acceptsProfiles(Profiles.of(
-                DEV_POSTGRESQL, DEV_POSTGRESQL_TYPO, PROD, LEGACY_POSTGRES));
+                DEV_POSTGRESQL, DEV_POSTGRESQL_EMPTY, DEV_POSTGRESQL_TYPO, PROD, LEGACY_POSTGRES));
     }
 
     public static boolean isH2(Environment environment) {

@@ -1,10 +1,10 @@
-/** TC-ACTIVITIES-CRUD — perfil Recepcionista vía switch de rol */
+/** TC-ACTIVITIES-CRUD — recepcionista directo (local E2E) o perfil en demo */
 describe('Actividades — CRUD recepción', () => {
   beforeEach(function () {
     if (Cypress.env('TARGET') === 'prod') {
       this.skip()
     }
-    cy.loginAsProfile('Recepcionista')
+    cy.loginAsReception()
   })
 
   it('TC-ACTIVITIES-CRUD: crear, modificar y eliminar actividad', () => {

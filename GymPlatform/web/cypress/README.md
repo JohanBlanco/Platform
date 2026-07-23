@@ -2,21 +2,71 @@
 
 Simula testers reales en el navegador. Casos `TC-*` en `docs/qa/manual-test-scripts.md`.
 
-## Credenciales (siempre)
+## Dos modos
+
+| Modo | Backend | Login |
+|------|---------|--------|
+| **Local E2E (BD vacía)** | `dev,e2e` — seed mínimo | Cuentas por rol (`recepcion@…`, `miembro@…`, etc.) |
+| **Demo / prod** | Demo completo o Vercel | `gymplatformadmin` + cambio de perfil |
+
+## Local E2E — BD vacía (recomendado para QA)
+
+### 1. Reset + backend
+
+```bash
+# Detén el backend si está corriendo, luego:
+bash scripts/e2e-reset-db.sh
+cd backend && mvn spring-boot:run -Dspring-boot.run.profiles=dev,e2e
+```
+
+El reset también borra `web/cypress/.local-e2e-state.json` (estado compartido entre specs 01–03).
+
+### 2. Frontend + Cypress
+
+```bash
+cd web && npm run dev          # terminal 2
+cd web && npm run cy:open:local # o cy:run:local
+```
+
+### Cuentas (seed `e2e-minimal.sql`)
+
+| Rol | Usuario | Contraseña |
+|-----|---------|------------|
+| Recepcionista | `recepcion@gymplatform.local` | `recepcion123` |
+| Instructor | `instructor@gymplatform.local` | `instructor123` |
+| Miembro | `miembro@gymplatform.local` | `miembro123` |
+| Administrador | `admin@gymplatform.local` | `12345678` |
+
+Comandos:
+
+```typescript
+cy.loginAsReception()
+cy.loginAsInstructor()
+cy.loginAsMember()
+cy.loginAsAdmin()
+```
+
+### Specs locales (ordenados)
+
+| Archivo | Flujo |
+|---------|--------|
+| `local/00-auth-roles.cy.ts` | Smoke login por rol |
+| `local/01-reception-catalog.cy.ts` | Productos, membresía, actividades |
+| `local/02-reception-cash-registers.cy.ts` | 3 cajas: efectivo, SINPE, mixto; agotado |
+| `local/03-activities-lifecycle.cy.ts` | Reserva → cancelación instructor |
+| `local/04-appointments.cy.ts` | Disponibilidad, cita, cancelación |
+| `local/05-nutrition-measurements.cy.ts` | Plan nutricional + medidas corporales |
+
+```bash
+npm run cy:run:local   # headless, suite completa
+```
+
+## Demo local / prod
 
 | Campo | Valor |
 |-------|--------|
 | Usuario | `gymplatformadmin` |
 | Contraseña | `gymplatformadmin` |
-
-Tiene todos los roles. En los tests se cambia perfil con el menú usuario:
-
-- **Administrador** — config, usuarios, estadísticas
-- **Recepcionista** — actividades, recepción, POS
-- **Instructor** — rutinas, plantillas
-- **Miembro** — reservaciones, rutinas propias
-
-Comandos Cypress:
 
 ```typescript
 cy.loginAsPlatformAdmin()
@@ -24,54 +74,16 @@ cy.loginAsProfile('Recepcionista')
 cy.switchToProfile('Miembro')
 ```
 
-## Cómo ejecutar
-
-### 1. Ver tests en el navegador (recomendado)
-
-**Local** (`localhost:5173` — backend `:8080` + `npm run dev`):
-
 ```bash
-cd web
-npm run cy:open
-```
-
-**Vercel prod** ([gym-platform-cr.vercel.app](https://gym-platform-cr.vercel.app)):
-
-```bash
-cd web
-npm run cy:open:prod
-```
-
-En la app Cypress: **E2E Testing** → Chrome → elige un spec → ▶ Run.
-
-### 2. Terminal (headless)
-
-```bash
-cd web
-npm run cy:run          # local
-npm run cy:run:prod     # Vercel
+npm run cy:open        # local demo
+npm run cy:open:prod   # Vercel
+npm run cy:run:prod    # smoke prod
 ```
 
 ## Requisitos
 
 | Entorno | Necesitas |
 |---------|-----------|
-| **Local** | `mvn spring-boot:run` + `npm run dev` |
-| **Prod** | Vercel + Render despierto (1.ª petición puede tardar ~1 min en free tier) |
-
-## Specs
-
-| Archivo | Qué prueba |
-|---------|------------|
-| `login.cy.ts` | Login, errores, campos vacíos |
-| `role-navigation.cy.ts` | Cambio de perfil, logout |
-| `activities-crud.cy.ts` | CRUD actividades (solo local; modifica BD) |
-| `smoke-prod.cy.ts` | Smoke en prod |
-
-## Perfiles en tests
-
-| Acción | Comando |
-|--------|---------|
-| Solo login admin | `cy.loginAsPlatformAdmin()` |
-| Ir directo a un perfil | `cy.loginAsProfile('Recepcionista')` |
-| Cambiar después de login | `cy.switchToProfile('Miembro')` |
+| **Local E2E** | Backend `dev,e2e` + `npm run dev`. **Cierra y reabre Cypress** tras cambios en `cypress.config.ts` (flags del navegador). |
+| **Local demo** | `mvn spring-boot:run` (perfil dev normal) |
+| **Prod** | Vercel + Render despierto |

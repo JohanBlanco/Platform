@@ -474,6 +474,12 @@ export const api = {
       body: JSON.stringify({ currentPassword, newPassword }),
     }),
 
+  verifyPrivateAreasPassword: (password: string) =>
+    request<void>('/statistics/access/verify', {
+      method: 'POST',
+      body: JSON.stringify({ password }),
+    }),
+
   unlockStatistics: (password: string) =>
     request<import('./types').StatisticsUnlock>('/statistics/unlock', {
       method: 'POST',

@@ -14,6 +14,7 @@ export default function LoginPage() {
   const passwordRef = useRef<HTMLInputElement>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [validationError, setValidationError] = useState<string | null>(null)
 
   useEffect(() => {
     if (sessionExpired) {
@@ -22,6 +23,7 @@ export default function LoginPage() {
   }, [sessionExpired, showInfo])
 
   const handleLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValidationError(null)
     const { value } = e.target
     // Email: no formatear. Cédula: solo dígitos.
     if (/[a-zA-Z@]/.test(value)) return
@@ -37,10 +39,13 @@ export default function LoginPage() {
     const pwd = passwordRef.current?.value ?? ''
 
     if (!trimmedLogin || !pwd) {
-      showInfo('Ingresa correo o cédula y contraseña')
+      const message = 'Ingresa correo o cédula y contraseña'
+      setValidationError(message)
+      showInfo(message)
       return
     }
 
+    setValidationError(null)
     setLoading(true)
     try {
       await login(trimmedLogin, pwd)
@@ -57,7 +62,7 @@ export default function LoginPage() {
         <h1>GymPlatform</h1>
         <p className="subtitle">Administración del gimnasio</p>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
           <div className="form-group">
             <label htmlFor="login-identifier">Correo o cédula</label>
             <input
@@ -67,8 +72,9 @@ export default function LoginPage() {
               name="login"
               onChange={handleLoginInput}
               placeholder="tu@email.com o 190205678"
-              required
               autoComplete="username"
+              aria-invalid={validationError ? true : undefined}
+              aria-describedby={validationError ? 'login-validation-error' : undefined}
             />
           </div>
 
@@ -81,8 +87,10 @@ export default function LoginPage() {
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 placeholder="••••••••"
-                required
                 autoComplete="current-password"
+                onChange={() => setValidationError(null)}
+                aria-invalid={validationError ? true : undefined}
+                aria-describedby={validationError ? 'login-validation-error' : undefined}
               />
               <button
                 type="button"
@@ -116,6 +124,12 @@ export default function LoginPage() {
               </button>
             </div>
           </div>
+
+          {validationError && (
+            <p id="login-validation-error" className="form-hint form-hint--warn" role="alert">
+              {validationError}
+            </p>
+          )}
 
           <button type="submit" className="btn-primary" style={{ width: '100%' }} disabled={loading}>
             {loading ? 'Ingresando...' : 'Iniciar sesión'}

@@ -10,6 +10,8 @@
     "cy:open": "cypress open",
     "cy:open:prod": "cypress open --config baseUrl=https://gym-platform-cr.vercel.app",
     "cy:run": "cypress run",
+    "cy:run:local": "cypress run --spec cypress/e2e/local/**/*.cy.ts",
+    "cy:open:local": "cypress open --e2e --browser chrome --spec cypress/e2e/local/**/*.cy.ts",
     "cy:run:prod": "cypress run --config baseUrl=https://gym-platform-cr.vercel.app --spec cypress/e2e/login.cy.ts,cypress/e2e/smoke-prod.cy.ts,cypress/e2e/role-navigation.cy.ts"
   },
   "dependencies": {

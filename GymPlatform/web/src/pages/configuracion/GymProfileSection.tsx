@@ -13,12 +13,15 @@ function isAccentId(value: string): value is AccentId {
 }
 
 export default function GymProfileSection() {
-  const { language, t } = usePreferences()
+  const { language } = usePreferences()
   const { organization, setOrganizationLocal } = useOrgBrand()
   const { showSuccess, showApiError, showInfo } = useToast()
 
+  const [accessReady, setAccessReady] = useState(false)
+  const [privateAccessConfigured, setPrivateAccessConfigured] = useState(false)
   const [unlocked, setUnlocked] = useState(false)
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [saving, setSaving] = useState(false)
   const [unlocking, setUnlocking] = useState(false)
 
@@ -32,6 +35,26 @@ export default function GymProfileSection() {
   const [websiteUrl, setWebsiteUrl] = useState('')
   const [socialHandle, setSocialHandle] = useState('')
   const [accentId, setAccentId] = useState<AccentId>('indigo')
+
+  useEffect(() => {
+    setPassword('')
+    setUnlocked(false)
+    setAccessReady(false)
+    let cancelled = false
+    void (async () => {
+      try {
+        const access = await api.getStatisticsAccess()
+        if (!cancelled) setPrivateAccessConfigured(access.configured)
+      } catch {
+        if (!cancelled) setPrivateAccessConfigured(false)
+      } finally {
+        if (!cancelled) setAccessReady(true)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   useEffect(() => {
     if (!organization) return
@@ -49,37 +72,23 @@ export default function GymProfileSection() {
 
   const handleUnlock = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!password.trim()) {
-      showInfo('Ingresa tu contraseña')
+    const privatePassword = password.trim()
+    if (!privatePassword) {
+      showInfo('Ingresa la contraseña de áreas privadas')
       return
     }
-    if (!organization) {
-      showInfo('No se pudo cargar el perfil del gimnasio')
-      return
-    }
-    // Validamos la contraseña intentando un PUT “noop” no — mejor desbloquear en cliente
-    // y exigir password solo al guardar (el backend siempre valida).
     setUnlocking(true)
     try {
-      // Confirmamos que la contraseña es válida re-guardando el estado actual.
-      const saved = await api.updateMyOrganization({
-        currentPassword: password,
-        name: organization.name,
-        contactEmail: organization.contactEmail,
-        contactPhone: organization.contactPhone,
-        address: organization.address,
-        city: organization.city,
-        tagline: organization.tagline,
-        businessHours: organization.businessHours,
-        websiteUrl: organization.websiteUrl,
-        socialHandle: organization.socialHandle,
-        accentId: organization.accentId,
-      })
-      setOrganizationLocal(saved)
+      await api.verifyPrivateAreasPassword(privatePassword)
       setUnlocked(true)
       showSuccess('Perfil desbloqueado')
     } catch (err) {
-      showApiError(err, 'Contraseña incorrecta')
+      showApiError(
+        err,
+        privateAccessConfigured
+          ? 'Contraseña de áreas privadas incorrecta'
+          : 'Primero define la contraseña en Configuración → Áreas privadas',
+      )
     } finally {
       setUnlocking(false)
     }
@@ -91,14 +100,15 @@ export default function GymProfileSection() {
       showInfo('El nombre del gimnasio es obligatorio')
       return
     }
-    if (!password.trim()) {
-      showInfo('Ingresa tu contraseña para guardar')
+    const privatePassword = password.trim()
+    if (!privatePassword) {
+      showInfo('Ingresa la contraseña de áreas privadas para guardar')
       return
     }
     setSaving(true)
     try {
       const saved = await api.updateMyOrganization({
-        currentPassword: password,
+        currentPassword: privatePassword,
         name: name.trim(),
         contactEmail: contactEmail.trim() || null,
         contactPhone: contactPhone.trim() || null,
@@ -119,24 +129,42 @@ export default function GymProfileSection() {
     }
   }
 
+  if (!accessReady) {
+    return <p className="text-muted">Verificando acceso…</p>
+  }
+
   if (!unlocked) {
     return (
       <form className="card" style={{ maxWidth: 420 }} onSubmit={(e) => void handleUnlock(e)}>
         <p style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>
-          Por seguridad, confirma tu contraseña de administrador para editar el perfil del gimnasio.
+          {privateAccessConfigured
+            ? 'Usa la misma contraseña que definiste en Configuración → Áreas privadas. No es la contraseña con la que inicias sesión.'
+            : 'Primero ve a Configuración → Áreas privadas y guarda una contraseña. Luego úsala aquí.'}
         </p>
         <div className="form-group">
-          <label htmlFor="gym-profile-password">Contraseña</label>
-          <input
-            id="gym-profile-password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="current-password"
-            required
-          />
+          <label htmlFor="gym-profile-private-password">Contraseña de áreas privadas</label>
+          <div className="statistics-access-password-row">
+            <input
+              id="gym-profile-private-password"
+              name="private-areas-password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="new-password"
+              data-lpignore="true"
+              data-1p-ignore="true"
+              required
+            />
+            <button
+              type="button"
+              className="btn-secondary"
+              onClick={() => setShowPassword((v) => !v)}
+            >
+              {showPassword ? 'Ocultar' : 'Ver'}
+            </button>
+          </div>
         </div>
-        <button type="submit" className="btn-primary" disabled={unlocking}>
+        <button type="submit" className="btn-primary" disabled={unlocking || !privateAccessConfigured}>
           {unlocking ? 'Verificando…' : 'Desbloquear'}
         </button>
       </form>
@@ -207,13 +235,16 @@ export default function GymProfileSection() {
       </div>
 
       <div className="form-group">
-        <label htmlFor="gym-save-password">Contraseña (para confirmar el guardado)</label>
+        <label htmlFor="gym-save-password">Contraseña de áreas privadas (confirmar guardado)</label>
         <input
           id="gym-save-password"
+          name="private-areas-password-confirm"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          autoComplete="current-password"
+          autoComplete="new-password"
+          data-lpignore="true"
+          data-1p-ignore="true"
           required
         />
       </div>

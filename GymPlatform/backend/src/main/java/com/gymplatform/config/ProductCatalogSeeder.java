@@ -9,6 +9,7 @@ import com.gymplatform.repository.ProductRepository;
 import com.gymplatform.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
@@ -36,22 +37,29 @@ public class ProductCatalogSeeder implements ApplicationRunner {
     private final ProductRepository productRepository;
     private final ProductCategoryRepository categoryRepository;
     private final ProductService productService;
+    private final boolean demoSeedEnabled;
 
     public ProductCatalogSeeder(
             OrganizationRepository organizationRepository,
             ProductRepository productRepository,
             ProductCategoryRepository categoryRepository,
-            ProductService productService
+            ProductService productService,
+            @Value("${app.demo.seed-enabled:true}") boolean demoSeedEnabled
     ) {
         this.organizationRepository = organizationRepository;
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
         this.productService = productService;
+        this.demoSeedEnabled = demoSeedEnabled;
     }
 
     @Override
     @Transactional
     public void run(ApplicationArguments args) {
+        if (!demoSeedEnabled) {
+            log.info("Catálogo demo omitido (app.demo.seed-enabled=false)");
+            return;
+        }
         organizationRepository.findBySlug(DemoSeedConstants.ORG_SLUG).ifPresent(this::seedIfEmpty);
     }
 
