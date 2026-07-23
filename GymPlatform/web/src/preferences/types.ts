@@ -15,6 +15,7 @@ export type SettingsSection =
   | 'forums'
   | 'cash'
   | 'private-access'
+  | 'about-platform'
 
 export type UserPreferences = {
   theme: ThemeMode

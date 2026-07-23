@@ -4,6 +4,7 @@ import FormsHub from '../pages/configuracion/FormsHub'
 import ForumsSection from '../pages/configuracion/ForumsSection'
 import GymProfileSection from '../pages/configuracion/GymProfileSection'
 import PrivateAccessSection from '../pages/configuracion/PrivateAccessSection'
+import PlatformAboutSection from '../pages/configuracion/PlatformAboutSection'
 import {
   LANGUAGE_OPTIONS,
   usePreferences,
@@ -109,6 +110,18 @@ export default function SettingsPanel({ section }: Props) {
           <p>{t('settings.privateAccessDescription')}</p>
         </div>
         <PrivateAccessSection />
+      </div>
+    )
+  }
+
+  if (section === 'about-platform') {
+    return (
+      <div className="settings-panel">
+        <div className="page-header">
+          <h1>{t('settings.aboutPlatform')}</h1>
+          <p>{t('settings.aboutPlatformDescription')}</p>
+        </div>
+        <PlatformAboutSection />
       </div>
     )
   }

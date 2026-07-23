@@ -945,6 +945,104 @@ label {
   font-size: 0.85rem;
 }
 
+.settings-sidebar {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 0;
+}
+
+.settings-nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.settings-nav-footer {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.platform-about-card {
+  max-width: 520px;
+}
+
+.platform-about-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.platform-about-app {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #6366f1;
+}
+
+.platform-about-version {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.platform-about-lead {
+  margin: 0 0 1.25rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.platform-about-meta {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0 0 1.25rem;
+}
+
+.platform-about-meta dt {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.platform-about-meta dd {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.platform-about-link {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.platform-about-link:hover {
+  text-decoration: underline;
+}
+
+.platform-about-cta {
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.login-platform-link {
+  margin: 1.25rem 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.login-platform-link a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.login-platform-link a:hover {
+  text-decoration: underline;
+}
+
 .settings-panel-options {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { useAuth } from '../auth'
 import { useToast } from '../toast'
 import { formatNationalIdInput } from '../utils/nationalId'
+import { PLATFORM_OFFICIAL_URL } from '../constants/platform'
 
 export default function LoginPage() {
   const { login } = useAuth()
@@ -135,6 +136,13 @@ export default function LoginPage() {
             {loading ? 'Ingresando...' : 'Iniciar sesión'}
           </button>
         </form>
+
+        <p className="login-platform-link">
+          Parte de{' '}
+          <a href={PLATFORM_OFFICIAL_URL} target="_blank" rel="noopener noreferrer">
+            Platform
+          </a>
+        </p>
       </div>
     </div>
   )

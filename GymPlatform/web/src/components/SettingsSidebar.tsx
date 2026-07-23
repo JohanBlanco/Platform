@@ -50,11 +50,12 @@ export default function SettingsSidebar({
   }, [activeSection])
 
   return (
-    <>
+    <div className="settings-sidebar">
       <button type="button" className="settings-nav-link settings-nav-back" onClick={onBack}>
         ← {t('settings.back')}
       </button>
 
+      <div className="settings-nav-items">
       {showGymProfile && (
         <button
           type="button"
@@ -184,6 +185,18 @@ export default function SettingsSidebar({
           {t('settings.privateAccess')}
         </button>
       )}
-    </>
+      </div>
+
+      <div className="settings-nav-footer">
+        <button
+          type="button"
+          className={`settings-nav-link${activeSection === 'about-platform' ? ' active' : ''}`}
+          aria-current={activeSection === 'about-platform' ? 'page' : undefined}
+          onClick={() => onSectionChange('about-platform')}
+        >
+          {t('settings.aboutPlatform')}
+        </button>
+      </div>
+    </div>
   )
 }
