@@ -1,4 +1,16 @@
 
+<!-- AUTO:bd114fc15379a03efdb37165a920e9a475f4dfa8 -->
+## 2026-07-22 — Merge pull request #3 from JohanBlanco/platform
+
+_Auto-sync desde commit `bd114fc`_
+
+### Docs actualizados automáticamente
+- [x] Timestamps wiki
+- [x] Changelog
+- [x] API Reference (si --full)
+
+---
+
 <!-- AUTO:eec0102b52586380ddbf2a81c105c9eb826e68c0 -->
 ## 2026-07-22 — Merge pull request #1 from JohanBlanco/Platform
 
