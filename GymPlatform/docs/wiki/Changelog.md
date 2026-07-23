@@ -1,4 +1,16 @@
 
+<!-- AUTO:eec0102b52586380ddbf2a81c105c9eb826e68c0 -->
+## 2026-07-22 — Merge pull request #1 from JohanBlanco/Platform
+
+_Auto-sync desde commit `eec0102`_
+
+### Docs actualizados automáticamente
+- [x] Timestamps wiki
+- [x] Changelog
+- [x] API Reference (si --full)
+
+---
+
 <!-- AUTO:740395918a98db160815286d5d79c6eb33e6859c -->
 ## 2026-07-21 — STARTED Vercel
 

@@ -68,7 +68,7 @@ Al agregar endpoints:
 ## Endpoints (auto-generado)
 
 <!-- AUTO-GENERATED:START -->
-_Generado automáticamente el 2026-07-22 desde `docs/openapi.json`_
+_Generado automáticamente el 2026-07-23 desde `docs/openapi.json`_
 
 ### Gimnasio
 
@@ -139,7 +139,7 @@ _Generado automáticamente el 2026-07-22 desde `docs/openapi.json`_
 | GET | `/api/nutrition-plans/me` | Mis planes nutricionales |
 | GET | `/api/nutrition-plans/member/{memberId}` | Planes nutricionales de un miembro |
 | GET | `/api/organization` | Perfil / branding del gimnasio actual |
-| PUT | `/api/organization` | Actualizar perfil del gimnasio (solo admin; requiere contraseña) |
+| PUT | `/api/organization` | Actualizar perfil del gimnasio (solo admin; requiere contraseña de áreas privadas) |
 | GET | `/api/packages` | getPackages |
 | POST | `/api/packages` | createPackage |
 | GET | `/api/packages/{id}` | getPackage |
@@ -268,6 +268,7 @@ _Generado automáticamente el 2026-07-22 desde `docs/openapi.json`_
 | GET | `/api/statistics/access` | Estado de la contraseña de áreas privadas (solo admin) |
 | PUT | `/api/statistics/access` | Definir contraseña de áreas privadas por primera vez (solo admin) |
 | PUT | `/api/statistics/access/change` | Cambiar contraseña de áreas privadas (solo admin) |
+| POST | `/api/statistics/access/verify` | Verificar contraseña de áreas privadas (sin emitir token) |
 | GET | `/api/statistics/dashboard` | Dashboard financiero (requiere X-Stats-Unlock) |
 | POST | `/api/statistics/unlock` | Desbloquear área privada (p. ej. dashboard de estadísticas) |
 
