@@ -39,7 +39,7 @@ public class StatisticsAccessService {
 
     @Transactional(readOnly = true)
     public StatisticsAccessResponse getAccess(Long organizationId) {
-        requireOwner();
+        requireStatsViewer();
         return new StatisticsAccessResponse(isConfigured(organizationId));
     }
 
@@ -57,7 +57,7 @@ public class StatisticsAccessService {
         if (access.isConfigured()) {
             throw new BusinessException("La contraseña ya está configurada. Usa «Cambiar» para actualizarla.");
         }
-        String password = request.password().trim();
+        String password = normalizePassword(request.password());
         validatePasswordStrength(password);
         access.setPasswordHash(passwordEncoder.encode(password));
         access.setUpdatedAt(java.time.Instant.now());
@@ -73,15 +73,35 @@ public class StatisticsAccessService {
         if (!access.isConfigured()) {
             throw new BusinessException("Primero configura la contraseña de áreas privadas");
         }
-        if (!passwordEncoder.matches(request.currentPassword(), access.getPasswordHash())) {
+        if (!passwordEncoder.matches(normalizePassword(request.currentPassword()), access.getPasswordHash())) {
             throw new BusinessException("La contraseña actual no es correcta");
         }
-        String next = request.newPassword().trim();
+        String next = normalizePassword(request.newPassword());
         validatePasswordStrength(next);
         access.setPasswordHash(passwordEncoder.encode(next));
         access.setUpdatedAt(java.time.Instant.now());
         accessRepository.save(access);
         return new StatisticsAccessResponse(true);
+    }
+
+    @Transactional(readOnly = true)
+    public void verifyAccessPassword(Long organizationId, String password) {
+        requireOwner();
+        assertAccessPasswordMatches(organizationId, password);
+    }
+
+    @Transactional(readOnly = true)
+    public void assertAccessPasswordMatches(Long organizationId, String password) {
+        if (!isConfigured(organizationId)) {
+            throw new BusinessException(
+                    "Primero configura la contraseña de áreas privadas en Configuración");
+        }
+        OrganizationStatisticsAccess access = accessRepository.findByOrganizationId(organizationId)
+                .orElseThrow(() -> new BusinessException(
+                        "Primero configura la contraseña de áreas privadas en Configuración"));
+        if (!passwordEncoder.matches(normalizePassword(password), access.getPasswordHash())) {
+            throw new BusinessException("Contraseña incorrecta");
+        }
     }
 
     @Transactional(readOnly = true)
@@ -94,7 +114,7 @@ public class StatisticsAccessService {
         OrganizationStatisticsAccess access = accessRepository.findByOrganizationId(organizationId)
                 .orElseThrow(() -> new BusinessException(
                         "El administrador debe definir la contraseña de áreas privadas en Configuración"));
-        if (!passwordEncoder.matches(request.password(), access.getPasswordHash())) {
+        if (!passwordEncoder.matches(normalizePassword(request.password()), access.getPasswordHash())) {
             throw new BusinessException("Contraseña incorrecta");
         }
         UserPrincipal user = SecurityUtils.currentUser();
@@ -121,6 +141,13 @@ public class StatisticsAccessService {
             created.setOrganization(org);
             return accessRepository.save(created);
         });
+    }
+
+    private static String normalizePassword(String password) {
+        if (password == null) {
+            return "";
+        }
+        return password.trim();
     }
 
     private void validatePasswordStrength(String password) {

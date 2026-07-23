@@ -4,6 +4,9 @@ backend/data/
 backend/target/
 e2e/target/
 web/dist/
+web/cypress/videos/
+web/cypress/screenshots/
+web/cypress/.local-e2e-state.json
 .env
 .env.*
 !.env.example

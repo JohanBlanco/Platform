@@ -5,6 +5,13 @@ import { useDateFormat } from '../../preferences/useDateFormat'
 import { MEMBERSHIP_STATUS_LABELS, membershipStatusBadgeClass } from '../../roles'
 import type { User } from '../../types'
 
+function paymentAsideLabel(user: User, formatDate: (iso: string) => string): string {
+  if (user.nextPaymentDate) {
+    return formatDate(user.nextPaymentDate)
+  }
+  return 'Pago'
+}
+
 export default function PendingPaymentsPanel() {
   const { formatDate } = useDateFormat()
   const [pending, setPending] = useState<User[]>([])
@@ -28,38 +35,39 @@ export default function PendingPaymentsPanel() {
 
   const { filtered, filterInput } = useFilteredList(pending, searchExtras)
 
-  if (loading) return <p>Cargando...</p>
+  if (loading) return <p className="text-muted">Cargando…</p>
 
   return (
     <>
       {filterInput}
-      <div className="grid grid-2">
-        {pending.length === 0 ? (
-          <div className="empty-state card">No hay miembros pendientes de pago</div>
-        ) : filtered.length === 0 ? (
-          <div className="empty-state card">Ningún resultado coincide con la búsqueda</div>
-        ) : filtered.map((u) => (
-          <div key={u.id} className="card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
-              <h3>{u.firstName} {u.lastName}</h3>
-              <span className={`badge ${membershipStatusBadgeClass(u.membershipStatus)}`}>
-                {MEMBERSHIP_STATUS_LABELS[u.membershipStatus ?? 'PAYMENT_PENDING'] ?? 'Pendiente de pago'}
-              </span>
-            </div>
-            <p style={{ fontSize: '0.9rem', marginTop: '0.5rem', color: 'var(--text-muted)' }}>
-              {u.email}
-            </p>
-            {u.nextPaymentDate && (
-              <p style={{ fontSize: '0.85rem', marginTop: '0.5rem', marginBottom: 0 }}>
-                Venció el {formatDate(u.nextPaymentDate)}
-              </p>
-            )}
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '0.35rem', marginBottom: 0 }}>
-              Plan: {u.membershipPackageName ?? 'Sin plan asignado'}
-            </p>
-          </div>
-        ))}
-      </div>
+      {pending.length === 0 ? (
+        <p className="empty-state">No hay miembros pendientes de pago</p>
+      ) : filtered.length === 0 ? (
+        <p className="empty-state">Ningún resultado coincide con la búsqueda</p>
+      ) : (
+        <ul className="staff-home-item-list">
+          {filtered.map((u) => (
+            <li key={u.id} className="staff-home-item-card">
+              <span className="staff-home-item-aside">{paymentAsideLabel(u, formatDate)}</span>
+              <div className="staff-home-item-main">
+                <div className="staff-home-item-head">
+                  <h3 className="staff-home-item-title">
+                    {u.firstName} {u.lastName}
+                  </h3>
+                  <span className={`badge staff-home-item-badge ${membershipStatusBadgeClass(u.membershipStatus)}`}>
+                    {MEMBERSHIP_STATUS_LABELS[u.membershipStatus ?? 'PAYMENT_PENDING'] ?? 'Pendiente de pago'}
+                  </span>
+                </div>
+                <p className="staff-home-item-meta">{u.email}</p>
+                <p className="staff-home-item-meta staff-home-item-meta--clamp">
+                  {u.nextPaymentDate ? `Venció el ${formatDate(u.nextPaymentDate)} · ` : ''}
+                  Plan: {u.membershipPackageName ?? 'Sin plan asignado'}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   )
 }

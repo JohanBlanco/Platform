@@ -57,6 +57,14 @@ public class StatisticsController {
         return accessService.changePassword(SecurityUtils.requireOrganizationId(), request);
     }
 
+    @Operation(summary = "Verificar contraseña de áreas privadas (sin emitir token)")
+    @PostMapping("/access/verify")
+    public void verifyAccess(@Valid @RequestBody StatisticsUnlockRequest request) {
+        accessService.verifyAccessPassword(
+                SecurityUtils.requireOrganizationId(),
+                request.password());
+    }
+
     @Operation(summary = "Desbloquear área privada (p. ej. dashboard de estadísticas)")
     @PostMapping("/unlock")
     public StatisticsUnlockResponse unlock(@Valid @RequestBody StatisticsUnlockRequest request) {

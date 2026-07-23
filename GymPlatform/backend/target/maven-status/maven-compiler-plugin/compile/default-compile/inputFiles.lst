@@ -11,6 +11,7 @@ C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\g
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\DemoSeedConstants.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\DemoSeedSqlDialect.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\DemoSqlSeeder.java
+C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\E2eMinimalSeeder.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\ExerciseCatalogSeeder.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\ForumExerciseSeeder.java
 C:\Users\blajo\Documents\Spring\Platform\GymPlatform\backend\src\main\java\com\gymplatform\config\OpenApiConfig.java
